@@ -1,0 +1,239 @@
+{
+  "nav": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "dashboard": "Dashboard",
+    "logout": "Abmelden"
+  },
+  "landing": {
+    "hero": {
+      "headline": "Energieberatung. Digital. Effizient.",
+      "sub": "Erfassen Sie Gebäudedaten vor Ort, navigieren Sie durch Förderprogramme und behalten Sie den Überblick über alle Ihre Projekte.",
+      "cta": "Jetzt kostenlos starten",
+      "login": "Bereits registriert? Anmelden"
+    },
+    "features": {
+      "title": "Alles was Sie brauchen",
+      "item1_title": "Vor-Ort-Erfassung",
+      "item1_desc": "GEG-konformes Begehungsformular für Gebäudehülle, Heizung, Fenster und Lüftung – direkt am Gebäude ausfüllbar.",
+      "item2_title": "Förder-Navigator",
+      "item2_desc": "Regelbasierte Prüfung von BAFA BEG EM/WG, KfW BEG WG Kredit und iSFP-Bonus auf Basis Ihrer Gebäudedaten.",
+      "item3_title": "Kundenportal",
+      "item3_desc": "Transparenter Projektstatus für Ihre Kunden – mit Dokumenten-Upload und automatischen Status-Updates."
+    },
+    "compliance": "DSGVO-konform · Made in Germany · Powered by Supabase"
+  },
+  "auth": {
+    "loginTitle": "Anmelden",
+    "registerTitle": "Konto erstellen",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "name": "Vollständiger Name",
+    "company": "Unternehmen (optional)",
+    "loginButton": "Anmelden",
+    "registerButton": "Registrieren",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Bereits registriert?",
+    "registerLink": "Jetzt registrieren",
+    "loginLink": "Anmelden",
+    "successRegister": "Bestätigungslink wurde an Ihre E-Mail gesendet. Bitte prüfen Sie Ihren Posteingang.",
+    "errors": {
+      "required": "Dieses Feld ist erforderlich.",
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "minPassword": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      "passwordMismatch": "Die Passwörter stimmen nicht überein.",
+      "invalidCredentials": "E-Mail oder Passwort ist falsch.",
+      "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    }
+  },
+  "dashboard": {
+    "title": "Meine Projekte",
+    "welcome": "Willkommen",
+    "newProject": "Neues Projekt",
+    "noProjects": "Noch keine Projekte vorhanden. Legen Sie Ihr erstes Projekt an.",
+    "projects": "Projekte",
+    "status": {
+      "new": "Neu",
+      "in_progress": "In Bearbeitung",
+      "completed": "Abgeschlossen"
+    },
+    "table": {
+      "customer": "Kunde",
+      "address": "Adresse",
+      "status": "Status",
+      "created": "Erstellt am",
+      "actions": "Aktionen"
+    }
+  },
+  "project": {
+    "new": {
+      "title": "Neues Projekt anlegen",
+      "customerName": "Kundenname *",
+      "customerEmail": "Kunden-E-Mail",
+      "address": "Straße und Hausnummer *",
+      "city": "Stadt *",
+      "postalCode": "Postleitzahl *",
+      "submit": "Projekt erstellen",
+      "cancel": "Abbrechen",
+      "success": "Projekt erfolgreich erstellt."
+    },
+    "detail": {
+      "title": "Projekt",
+      "inspection": "Begehung starten",
+      "inspectionEdit": "Begehung bearbeiten",
+      "photos": "Fotos verwalten",
+      "editStatus": "Status ändern",
+      "info": "Projektinformationen",
+      "customer": "Kunde",
+      "address": "Adresse",
+      "status": "Status",
+      "created": "Erstellt am",
+      "noBuilding": "Noch keine Begehung durchgeführt."
+    }
+  },
+  "inspection": {
+    "title": "GEG-Begehungsformular",
+    "subtitle": "Erfassen Sie die Gebäudedaten vor Ort.",
+    "sections": {
+      "building": "Gebäudedaten",
+      "envelope": "Gebäudehülle",
+      "heating": "Heizung & Warmwasser",
+      "windows": "Fenster & Verglasung",
+      "ventilation": "Lüftung",
+      "notes": "Notizen & Bemerkungen"
+    },
+    "building": {
+      "type": "Gebäudetyp",
+      "yearBuilt": "Baujahr",
+      "livingArea": "Wohnfläche (m²)",
+      "floors": "Anzahl Stockwerke",
+      "basement": "Keller vorhanden",
+      "types": {
+        "single_family": "Einfamilienhaus",
+        "two_family": "Zweifamilienhaus",
+        "multi_family": "Mehrfamilienhaus",
+        "commercial": "Nicht-Wohngebäude"
+      }
+    },
+    "envelope": {
+      "facadeMaterial": "Außenwandmaterial",
+      "facadeInsulated": "Außenwand gedämmt",
+      "facadeInsulationThickness": "Dämmstärke Außenwand (cm)",
+      "roofType": "Dachtyp",
+      "roofInsulated": "Dach gedämmt",
+      "basementCeilingInsulated": "Kellerdecke gedämmt",
+      "facadeMaterials": {
+        "brick": "Mauerwerk (Ziegel)",
+        "sand_lime": "Kalksandstein",
+        "concrete": "Beton / Stahlbeton",
+        "wood": "Holzständerbauweise",
+        "other": "Sonstiges"
+      },
+      "roofTypes": {
+        "flat": "Flachdach",
+        "pitched": "Satteldach",
+        "hipped": "Walmdach",
+        "mono_pitched": "Pultdach",
+        "other": "Sonstiges"
+      }
+    },
+    "heating": {
+      "type": "Heizungsart",
+      "yearInstalled": "Baujahr Heizanlage",
+      "fuelType": "Energieträger",
+      "hotWater": "Warmwasserbereitung",
+      "solarThermal": "Solarthermie vorhanden",
+      "types": {
+        "gas_boiler": "Gaskessel",
+        "oil_boiler": "Ölkessel",
+        "heat_pump": "Wärmepumpe",
+        "district": "Fernwärme",
+        "pellet": "Pelletkessel",
+        "other": "Sonstiges"
+      },
+      "fuelTypes": {
+        "gas": "Erdgas",
+        "oil": "Heizöl",
+        "electricity": "Strom",
+        "district": "Fernwärme",
+        "wood": "Holz / Pellets",
+        "other": "Sonstiges"
+      },
+      "hotWaterTypes": {
+        "central": "Zentral über Heizung",
+        "flow_heater": "Durchlauferhitzer",
+        "boiler": "Elektro-Boiler",
+        "solar": "Solarthermie"
+      }
+    },
+    "windows": {
+      "type": "Verglasung",
+      "frameMaterial": "Rahmenmaterial",
+      "gValue": "g-Wert (optional)",
+      "uValue": "U-Wert Uw (optional)",
+      "types": {
+        "single": "Einfachverglasung",
+        "double": "Zweifachverglasung",
+        "triple": "Dreifachverglasung"
+      },
+      "frameMaterials": {
+        "pvc": "Kunststoff (PVC)",
+        "wood": "Holz",
+        "aluminium": "Aluminium",
+        "wood_aluminium": "Holz-Aluminium"
+      }
+    },
+    "ventilation": {
+      "type": "Lüftungsart",
+      "heatRecovery": "Wärmerückgewinnung vorhanden",
+      "types": {
+        "natural": "Fensterlüftung (natürlich)",
+        "mechanical_supply": "Mechanisch Zuluft",
+        "mechanical_exhaust": "Mechanisch Abluft",
+        "balanced": "Zu-/Abluft mit WRG"
+      }
+    },
+    "notes": "Bemerkungen / Sonstige Hinweise",
+    "save": "Begehung speichern",
+    "saving": "Wird gespeichert...",
+    "saved": "Erfolgreich gespeichert",
+    "pleaseSelect": "Bitte wählen..."
+  },
+  "photos": {
+    "title": "Fotos",
+    "subtitle": "Fotos je Bauteil hochladen und kategorisieren.",
+    "category": "Kategorie",
+    "description": "Beschreibung (optional)",
+    "categories": {
+      "facade": "Fassade",
+      "roof": "Dach",
+      "basement": "Keller",
+      "heating": "Heizung",
+      "windows": "Fenster",
+      "other": "Sonstiges"
+    },
+    "upload": "Fotos hochladen",
+    "uploading": "Wird hochgeladen...",
+    "noPhotos": "Noch keine Fotos vorhanden.",
+    "maxSize": "Max. 10 MB pro Bild",
+    "deleteConfirm": "Foto wirklich löschen?",
+    "uploadSuccess": "Foto erfolgreich hochgeladen.",
+    "uploadError": "Fehler beim Hochladen. Bitte erneut versuchen."
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "yes": "Ja",
+    "no": "Nein",
+    "required": "Pflichtfeld",
+    "optional": "optional",
+    "backToDashboard": "Zurück zum Dashboard",
+    "backToProject": "Zurück zum Projekt"
+  }
+}
