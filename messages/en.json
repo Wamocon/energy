@@ -1,0 +1,239 @@
+{
+  "nav": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "dashboard": "Dashboard",
+    "logout": "Sign Out"
+  },
+  "landing": {
+    "hero": {
+      "headline": "Energy Consulting. Digital. Efficient.",
+      "sub": "Capture building data on-site, navigate funding programmes, and keep track of all your projects in one place.",
+      "cta": "Get started for free",
+      "login": "Already have an account? Sign in"
+    },
+    "features": {
+      "title": "Everything you need",
+      "item1_title": "On-Site Capture",
+      "item1_desc": "GEG-compliant inspection form for building envelope, heating, windows and ventilation – fill it in directly on-site.",
+      "item2_title": "Funding Navigator",
+      "item2_desc": "Rule-based check for BAFA BEG EM/WG, KfW BEG WG loan and iSFP bonus based on your building data.",
+      "item3_title": "Client Portal",
+      "item3_desc": "Transparent project status for your clients – with document upload and automatic status updates."
+    },
+    "compliance": "GDPR compliant · Made in Germany · Powered by Supabase"
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "registerTitle": "Create Account",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "name": "Full name",
+    "company": "Company (optional)",
+    "loginButton": "Sign In",
+    "registerButton": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "registerLink": "Sign up",
+    "loginLink": "Sign in",
+    "successRegister": "Confirmation link sent to your email. Please check your inbox.",
+    "errors": {
+      "required": "This field is required.",
+      "invalidEmail": "Please enter a valid email address.",
+      "minPassword": "Password must be at least 8 characters long.",
+      "passwordMismatch": "Passwords do not match.",
+      "invalidCredentials": "Invalid email or password.",
+      "generic": "An error occurred. Please try again."
+    }
+  },
+  "dashboard": {
+    "title": "My Projects",
+    "welcome": "Welcome",
+    "newProject": "New Project",
+    "noProjects": "No projects yet. Create your first project.",
+    "projects": "Projects",
+    "status": {
+      "new": "New",
+      "in_progress": "In Progress",
+      "completed": "Completed"
+    },
+    "table": {
+      "customer": "Client",
+      "address": "Address",
+      "status": "Status",
+      "created": "Created",
+      "actions": "Actions"
+    }
+  },
+  "project": {
+    "new": {
+      "title": "Create New Project",
+      "customerName": "Client name *",
+      "customerEmail": "Client email",
+      "address": "Street and house number *",
+      "city": "City *",
+      "postalCode": "Postal code *",
+      "submit": "Create Project",
+      "cancel": "Cancel",
+      "success": "Project created successfully."
+    },
+    "detail": {
+      "title": "Project",
+      "inspection": "Start Inspection",
+      "inspectionEdit": "Edit Inspection",
+      "photos": "Manage Photos",
+      "editStatus": "Change Status",
+      "info": "Project Information",
+      "customer": "Client",
+      "address": "Address",
+      "status": "Status",
+      "created": "Created",
+      "noBuilding": "No inspection carried out yet."
+    }
+  },
+  "inspection": {
+    "title": "GEG Inspection Form",
+    "subtitle": "Capture building data on-site.",
+    "sections": {
+      "building": "Building Data",
+      "envelope": "Building Envelope",
+      "heating": "Heating & Hot Water",
+      "windows": "Windows & Glazing",
+      "ventilation": "Ventilation",
+      "notes": "Notes & Remarks"
+    },
+    "building": {
+      "type": "Building type",
+      "yearBuilt": "Year built",
+      "livingArea": "Living area (m²)",
+      "floors": "Number of floors",
+      "basement": "Basement present",
+      "types": {
+        "single_family": "Detached house",
+        "two_family": "Semi-detached house",
+        "multi_family": "Apartment building",
+        "commercial": "Non-residential building"
+      }
+    },
+    "envelope": {
+      "facadeMaterial": "Exterior wall material",
+      "facadeInsulated": "Exterior wall insulated",
+      "facadeInsulationThickness": "Insulation thickness (cm)",
+      "roofType": "Roof type",
+      "roofInsulated": "Roof insulated",
+      "basementCeilingInsulated": "Basement ceiling insulated",
+      "facadeMaterials": {
+        "brick": "Brick masonry",
+        "sand_lime": "Sand-lime brick",
+        "concrete": "Concrete / reinforced concrete",
+        "wood": "Timber frame",
+        "other": "Other"
+      },
+      "roofTypes": {
+        "flat": "Flat roof",
+        "pitched": "Pitched roof",
+        "hipped": "Hipped roof",
+        "mono_pitched": "Mono-pitched roof",
+        "other": "Other"
+      }
+    },
+    "heating": {
+      "type": "Heating type",
+      "yearInstalled": "Year of installation",
+      "fuelType": "Energy source",
+      "hotWater": "Hot water preparation",
+      "solarThermal": "Solar thermal present",
+      "types": {
+        "gas_boiler": "Gas boiler",
+        "oil_boiler": "Oil boiler",
+        "heat_pump": "Heat pump",
+        "district": "District heating",
+        "pellet": "Pellet boiler",
+        "other": "Other"
+      },
+      "fuelTypes": {
+        "gas": "Natural gas",
+        "oil": "Heating oil",
+        "electricity": "Electricity",
+        "district": "District heating",
+        "wood": "Wood / Pellets",
+        "other": "Other"
+      },
+      "hotWaterTypes": {
+        "central": "Central (via heating)",
+        "flow_heater": "Instantaneous water heater",
+        "boiler": "Electric boiler",
+        "solar": "Solar thermal"
+      }
+    },
+    "windows": {
+      "type": "Glazing type",
+      "frameMaterial": "Frame material",
+      "gValue": "g-value (optional)",
+      "uValue": "U-value Uw (optional)",
+      "types": {
+        "single": "Single glazing",
+        "double": "Double glazing",
+        "triple": "Triple glazing"
+      },
+      "frameMaterials": {
+        "pvc": "PVC",
+        "wood": "Wood",
+        "aluminium": "Aluminium",
+        "wood_aluminium": "Wood-aluminium"
+      }
+    },
+    "ventilation": {
+      "type": "Ventilation type",
+      "heatRecovery": "Heat recovery present",
+      "types": {
+        "natural": "Natural ventilation (windows)",
+        "mechanical_supply": "Mechanical supply air",
+        "mechanical_exhaust": "Mechanical exhaust air",
+        "balanced": "Balanced ventilation with HRV"
+      }
+    },
+    "notes": "Notes / Additional remarks",
+    "save": "Save Inspection",
+    "saving": "Saving...",
+    "saved": "Saved successfully",
+    "pleaseSelect": "Please select..."
+  },
+  "photos": {
+    "title": "Photos",
+    "subtitle": "Upload and categorise photos by building component.",
+    "category": "Category",
+    "description": "Description (optional)",
+    "categories": {
+      "facade": "Facade",
+      "roof": "Roof",
+      "basement": "Basement",
+      "heating": "Heating",
+      "windows": "Windows",
+      "other": "Other"
+    },
+    "upload": "Upload Photos",
+    "uploading": "Uploading...",
+    "noPhotos": "No photos yet.",
+    "maxSize": "Max. 10 MB per image",
+    "deleteConfirm": "Delete this photo?",
+    "uploadSuccess": "Photo uploaded successfully.",
+    "uploadError": "Upload failed. Please try again."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No",
+    "required": "Required",
+    "optional": "optional",
+    "backToDashboard": "Back to Dashboard",
+    "backToProject": "Back to Project"
+  }
+}
