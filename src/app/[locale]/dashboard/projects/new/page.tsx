@@ -56,7 +56,7 @@ export default function NewProjectPage() {
       .single();
 
     if (error || !project) {
-      setServerError(error?.message ?? 'Unbekannter Fehler');
+      setServerError(error?.message ?? t('unknownError'));
       return;
     }
 
@@ -71,7 +71,7 @@ export default function NewProjectPage() {
             href="/dashboard"
             className="mr-4 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
           >
-            ← Dashboard
+            ← {t('backToDashboard')}
           </Link>
           <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">⚡ Energieberater</span>
         </div>
@@ -99,7 +99,7 @@ export default function NewProjectPage() {
                   className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
                 />
                 {errors.customer_name && (
-                  <p className="mt-1 text-xs text-red-600">Pflichtfeld</p>
+                  <p className="mt-1 text-xs text-red-600">{t('required')}</p>
                 )}
               </div>
 
@@ -113,7 +113,7 @@ export default function NewProjectPage() {
                   className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
                 />
                 {errors.customer_email && (
-                  <p className="mt-1 text-xs text-red-600">Ungültige E-Mail-Adresse</p>
+                  <p className="mt-1 text-xs text-red-600">{t('invalidEmail')}</p>
                 )}
               </div>
 

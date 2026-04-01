@@ -151,7 +151,7 @@ export function PhotoUpload({ projectId, userId, initialPhotos }: Props) {
       {/* Photo list */}
       <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
         <h2 className="mb-4 font-semibold text-zinc-900 dark:text-zinc-50">
-          Hochgeladene Fotos ({photos.length})
+          {t('uploaded', { count: photos.length })}
         </h2>
         {photos.length === 0 ? (
           <p className="text-sm text-zinc-500">{t('noPhotos')}</p>
@@ -193,7 +193,7 @@ function PhotoRow({
           <p className="text-xs text-zinc-500">{photo.description}</p>
         )}
         <p className="text-xs text-zinc-400">
-          {new Date(photo.created_at).toLocaleDateString('de-DE')}
+          {new Date(photo.created_at).toLocaleDateString()}
         </p>
       </div>
       <div className="flex gap-3">
@@ -201,13 +201,13 @@ function PhotoRow({
           onClick={handleView}
           className="text-xs font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
         >
-          Ansehen
+          {t('view')}
         </button>
         <button
           onClick={() => onDelete(photo)}
           className="text-xs font-medium text-red-500 hover:text-red-700 dark:hover:text-red-400"
         >
-          {t('deleteConfirm').replace('?', '')}
+          {t('delete')}
         </button>
       </div>
     </div>
