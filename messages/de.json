@@ -63,7 +63,8 @@
       "address": "Adresse",
       "status": "Status",
       "created": "Erstellt am",
-      "actions": "Aktionen"
+      "actions": "Aktionen",
+      "open": "Öffnen"
     }
   },
   "project": {
@@ -76,7 +77,11 @@
       "postalCode": "Postleitzahl *",
       "submit": "Projekt erstellen",
       "cancel": "Abbrechen",
-      "success": "Projekt erfolgreich erstellt."
+      "success": "Projekt erfolgreich erstellt.",
+      "required": "Pflichtfeld",
+      "invalidEmail": "Ungültige E-Mail-Adresse",
+      "unknownError": "Unbekannter Fehler",
+      "backToDashboard": "Dashboard"
     },
     "detail": {
       "title": "Projekt",
@@ -215,6 +220,9 @@
     },
     "upload": "Fotos hochladen",
     "uploading": "Wird hochgeladen...",
+    "uploaded": "Hochgeladene Fotos ({count})",
+    "view": "Ansehen",
+    "delete": "Löschen",
     "noPhotos": "Noch keine Fotos vorhanden.",
     "maxSize": "Max. 10 MB pro Bild",
     "deleteConfirm": "Foto wirklich löschen?",

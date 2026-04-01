@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import { LogoutButton } from '@/components/LogoutButton';
 import type { Project, ProjectStatus } from '@/lib/db/types';
 
-function StatusBadge({ status }: { status: ProjectStatus }) {
+function StatusBadge({ status, label }: { status: ProjectStatus; label: string }) {
   const colours: Record<ProjectStatus, string> = {
     new: 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-400',
     in_progress: 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-400',
@@ -13,18 +13,19 @@ function StatusBadge({ status }: { status: ProjectStatus }) {
   };
   return (
     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${colours[status]}`}>
-      {status}
+      {label}
     </span>
   );
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect('/auth/login');
+  if (!user) redirect(`/${locale}/auth/login`);
 
   const { data: projects } = await supabase
     .from('projects')
@@ -103,17 +104,17 @@ export default async function DashboardPage() {
                       {project.address}, {project.city}
                     </td>
                     <td className="px-4 py-3">
-                      <StatusBadge status={project.status} />
+                      <StatusBadge status={project.status} label={t(`status.${project.status}`)} />
                     </td>
                     <td className="hidden px-4 py-3 text-zinc-500 sm:table-cell">
-                      {new Date(project.created_at).toLocaleDateString('de-DE')}
+                      {new Date(project.created_at).toLocaleDateString(locale === 'en' ? 'en-GB' : 'de-DE')}
                     </td>
                     <td className="px-4 py-3">
                       <Link
                         href={`/dashboard/projects/${project.id}`}
                         className="font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
                       >
-                        Öffnen →
+                        {t('table.open')} →
                       </Link>
                     </td>
                   </tr>

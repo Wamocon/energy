@@ -8,10 +8,9 @@ const intlMiddleware = createMiddleware(routing);
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect dashboard routes (with or without locale prefix)
-  const isDashboard =
-    pathname.startsWith('/dashboard') ||
-    pathname.startsWith('/en/dashboard');
+  // Protect dashboard routes for all locales
+  const isDashboard = /^\/(de|en)\/dashboard(\/|$)/.test(pathname) ||
+    pathname.startsWith('/dashboard');
 
   if (isDashboard) {
     // Apply intl routing first, then check auth
@@ -41,7 +40,7 @@ export async function middleware(request: NextRequest) {
 
     if (!user) {
       const locale = pathname.startsWith('/en/') ? 'en' : 'de';
-      const loginPath = locale === 'en' ? '/en/auth/login' : '/auth/login';
+      const loginPath = `/${locale}/auth/login`;
       return NextResponse.redirect(new URL(loginPath, request.url));
     }
 

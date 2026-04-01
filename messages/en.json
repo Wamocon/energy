@@ -63,7 +63,8 @@
       "address": "Address",
       "status": "Status",
       "created": "Created",
-      "actions": "Actions"
+      "actions": "Actions",
+      "open": "Open"
     }
   },
   "project": {
@@ -76,7 +77,11 @@
       "postalCode": "Postal code *",
       "submit": "Create Project",
       "cancel": "Cancel",
-      "success": "Project created successfully."
+      "success": "Project created successfully.",
+      "required": "Required field",
+      "invalidEmail": "Invalid email address",
+      "unknownError": "An unknown error occurred",
+      "backToDashboard": "Dashboard"
     },
     "detail": {
       "title": "Project",
@@ -214,8 +219,9 @@
       "other": "Other"
     },
     "upload": "Upload Photos",
-    "uploading": "Uploading...",
-    "noPhotos": "No photos yet.",
+    "uploading": "Uploading...",    "uploaded": "Uploaded photos ({count})",
+    "view": "View",
+    "delete": "Delete",    "noPhotos": "No photos yet.",
     "maxSize": "Max. 10 MB per image",
     "deleteConfirm": "Delete this photo?",
     "uploadSuccess": "Photo uploaded successfully.",
