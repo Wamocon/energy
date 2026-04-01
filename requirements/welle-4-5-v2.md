@@ -1,7 +1,10 @@
 # Anforderungsdokument — App "Energieberater"
 
-**Erstellt:** März 2026 | **Autor:** Erwin Moretz | **Version:** 1.0  
+**Erstellt:** März 2026 | **Aktualisiert:** 01. April 2026  
+**Autor:** Erwin Moretz | **Version:** 2.0  
 **Wellen:** Welle 4 & Welle 5 | **Gesamt-Entwicklungszeit:** 32h (2 × 16h)
+
+> **Änderungshistorie v2.0:** Zielgruppe geschärft (Berater-Feedback + Waleri-Review), Welle 5 neu priorisiert (kein Kundenportal-Login), Marktgröße und Wettbewerbsanalyse ergänzt, Qualitätsmerkmal "KI-geprüfte Erfassung" + "Geführte Dokumentenerfassung" aufgenommen.
 
 ---
 
@@ -24,6 +27,13 @@ Die Endkunden der Energieberater sind zu ~80% Hausbesitzer über 40 Jahre (Gebä
 **Welches Problem löst diese App?**
 Bestehende Softwarelösungen decken nur Teilbereiche ab — und das aus einem strukturellen Grund: Berechnungssoftware (Hottgenroth, IBO, ETU — Marktführer seit den 1990ern) ist auf normkonforme Physik-Engines optimiert, desktop-basiert, hochkomplex und nicht für den mobilen Außendienst geeignet. Prozessmanagement (CRM, mobiles Erfassungsformular, Kundenkommunikation, Förder-Navigator) wurde nie Teil dieser Tools, weil es eine völlig andere Produktkategorie ist. Diese Lücke — zwischen Berechnung und Prozess — ist die Marktchance: Es existiert keine End-to-End-Plattform, die mobile Vor-Ort-Erfassung, Förderprüfung und Projektkommunikation in einer modernen Webanwendung verbindet.
 
+**Qualitätsmerkmal & Differenzierung:**
+Die App differenziert sich durch zwei Alleinstellungsmerkmale, die kein bestehender Wettbewerber bietet:
+
+1. **KI-geprüfte Gebäudeerfassung** — Nach der Vor-Ort-Erfassung prüft eine KI die eingetragenen Gebäudedaten automatisch auf Vollständigkeit, Plausibilität und GEG-Konformität. Widersprüche (z.B. Baujahr 1975 + Wärmepumpe als Bestandsheizung) und fehlende Pflichtfelder werden vor Abschluss markiert. Ergebnis: Fehler werden vor der Berechnung gefunden — nicht danach.
+
+2. **Geführte Dokumentenerfassung** — Kunden wissen oft nicht, welche Unterlagen für BAFA/KfW benötigt werden, und sind mit dem Einreichen überfordert (Scannen, Dateiformat, Benennung). Die App löst das: Der Berater legt pro Projekt eine förderungsspezifische Dokumenten-Checkliste an. Der Kunde erhält einen einfachen Link mit Schritt-für-Schritt-Anleitung und Fortschrittsanzeige (*"3 von 5 Unterlagen eingereicht"*). Eine KI prüft, ob das hochgeladene Dokument dem erwarteten Typ entspricht. Der Berater sieht auf einen Blick, was noch fehlt — kein WhatsApp-Chaos mehr.
+
 **Haben Sie eine bestehende App oder Website?**
 Nein. Neuentwicklung auf Basis von Next.js 16 (bestehendes Repository vorhanden).
 
@@ -32,7 +42,7 @@ Nein. Neuentwicklung auf Basis von Next.js 16 (bestehendes Repository vorhanden)
 ## 2. Funktionale Anforderungen
 
 **Welche Hauptfunktionen brauchen Sie?**
-Authentifizierung, Berater-Dashboard, GEG-Begehungsformular, Foto-Upload, Förder-Navigator, Kundenportal, Fristenkalender, Projektstatus-Kommunikation, Landingpage.
+Authentifizierung, Berater-Dashboard, GEG-Begehungsformular, Foto-Upload, Förder-Navigator, Fristenkalender, Projektstatus-Kommunikation per E-Mail, Digitales Kundenformular, Landingpage.
 
 **Beschreiben Sie die wichtigste Funktion im Detail.**
 Die **Vor-Ort-Erfassung** (GEG-Begehungsformular) ist der Kern von Welle 4: Ein strukturiertes Formular erfasst alle relevanten Gebäudedaten nach GEG-Standard (Gebäudehülle, Heizung, Fenster, Lüftung) — mobil im Browser bedienbar, inklusive Foto-Upload je Bauteil. Der **Förder-Navigator** (Welle 5) prüft regelbasiert die Förderfähigkeit für BAFA BEG EM, BAFA BEG WG, KfW BEG WG Kredit und iSFP-Bonus.
@@ -126,15 +136,15 @@ Berater meldet sich an → legt Projekt an → füllt GEG-Begehungsformular aus 
 
 ---
 
-## 8. Welle 5 — "Navigator & Kundenportal"
+## 8. Welle 5 — "Navigator & Kommunikation"
 
 **Zeitraum:** KW15 — 13.–19. April 2026 | **Entwicklungszeit:** 16h  
-**Fokus:** Förder-Navigator, Kundenportal, Projektkommunikation, Landingpage-Erweiterung
+**Fokus:** Förder-Navigator, Digitales Kundenformular, Projektkommunikation, Landingpage-Erweiterung
 
 **Hauptprozess (präsentierbar am Wellen-Ende):**
 Berater schickt Kunden Formular-Link → Kunde füllt Stammdaten/Gebäudedaten aus → Daten fließen ins Projekt → Förder-Navigator zeigt passende Programme → Berater sendet Status-E-Mail an Kunden ✅
 
-> **Scope-Entscheidung (basierend auf Berater-Feedback):** Das Kundenportal mit Login wurde entfernt — 80% der Endkunden sind über 40 und digital wenig affin. Ersetzt durch digitales Kundenformular (kein Login nötig) und E-Mail-Benachrichtigung.
+> **Scope-Entscheidung:** Kundenportal mit Login entfernt — 80% der Endkunden sind über 40 und digital wenig affin. Ersetzt durch digitales Kundenformular (kein Login nötig) und E-Mail-Benachrichtigung. Geführte Dokumentenerfassung und KI-Prüfung sind im Backlog als nächste Ausbaustufe geplant.
 
 | # | Feature | Beschreibung | h |
 |---|---|---|---|
@@ -196,75 +206,24 @@ Für jede Welle werden User Stories mit Akzeptanzkriterien als verbindliches Abn
 | Welle | Zeitraum | Entwicklungszeit | Hauptprozess-Ziel |
 |---|---|---|---|
 | **Welle 4** | KW14 — 06.–12. April 2026 | 16h | Berater anmelden → Projekt anlegen → GEG-Formular → Fotos hochladen → Dashboard ✅ |
-| **Welle 5** | KW15 — 13.–19. April 2026 | 16h | Gebäudedaten → Förder-Navigator → Ergebnis an Kunden → Kundenportal Projektstatus ✅ |
+| **Welle 5** | KW15 — 13.–19. April 2026 | 16h | Kundenformular → Daten ins Projekt → Förder-Navigator → Status-E-Mail an Kunden ✅ |
 
 **Hinweis zur Arbeitsplanung:** Die Entwicklungszeit ist innerhalb der jeweiligen Kalenderwoche flexibel einzuplanen. Hauptarbeitszeit ist primär abends (ab 17 Uhr) sowie bei Bedarf am Wochenende. Eine tagesgenaue Planung entfällt bewusst — Fortschritte werden feature-basiert getrackt.
 
 ---
 
-## 13. Bewusst ausgeklammert — Backlog für zukünftige Wellen
+## 13. Bewusst ausgeklammert — Backlog
 
-| Feature | Beschreibung | Schätzung | Empfohlene Welle |
-|---|---|---|---|
-| **Digitales Energieausweis-Datenblatt** | Online-Formular für Verbrauchs-/Bedarfsausweis-Datenerfassung durch Kunden (basierend auf bestehendem Adobe-Pro-PDF von Praczka & Pinneger) | ~2h | Backlog |
-| **Baubegleitung-Checklisten** | Digitale Abhaklisten je Projektphase (Baubegleitung) — Berater hakt Schritte ab, Fortschritt ist im Dashboard sichtbar | ~3h | Backlog |
-| **Kundenportal mit Login** | Separater Kunden-Login, Projektstatus-Ansicht (read-only), Dokumentenablage — verschoben wegen Zielgruppen-Einschränkung (80% der Kunden > 40 Jahre, digital wenig affin) | ~5,5h | Backlog |
-| **BAFA-Live-API** | Echtzeit-Abfrage der aktuellen Förderbedingungen direkt bei BAFA/KfW statt regelbasierter Logik | ~5h | Backlog |
-| **iSFP-Generierung per KI** | Automatische Erstellung des individuellen Sanierungsfahrplans (iSFP) als PDF auf Basis der erfassten Gebäudedaten, KI-gestützt | ~8h | Welle 6 |
-| **E-Rechnung (XRechnung)** | Digitale Rechnungserstellung im XRechnung-Format für öffentliche Auftraggeber | ~3h | Welle 6 |
-| **Lead-Widget** | Einbettbares Kontaktformular für die Berater-Website — generiert direkt Leads in der App | ~4h | Welle 7 |
-| **Geo-Routing** | Entfernungsberechnung und Routenplanung zu Kundenobjekten (Google Maps / OpenStreetMap) | ~3h | Welle 7 |
-| **Mandantenfähigkeit** | Mehrere Berater in einem geteilten Büro-Account — gemeinsame Projektbasis, rollenbasierte Zugriffsrechte | ~10h | Welle 7–8 |
-
----
-
-### Vorschlag: Wellen-Kombinationen
-
-| Welle | Thema | Enthaltene Features | Geschätzte Gesamtzeit |
-|---|---|---|---|
-| **Welle 6** | "Automatisierung & Dokumente" | BAFA-Live-API + iSFP-Generierung per KI + E-Rechnung | ~16h |
-| **Welle 7** | "Wachstum & Akquise" | Lead-Widget + Geo-Routing + Mandantenfähigkeit Teil 1 (Einladungssystem) | ~14–16h |
-| **Welle 8** | "Skalierung" | Mandantenfähigkeit Teil 2 (Rollen, Abrechnungen) + App-Store-Veröffentlichung als PWA + Performance-Optimierung | ~14–16h |
-
-> **Empfehlung:** Welle 6 hat den höchsten Mehrwert für den Berater-Alltag (automatischer iSFP spart ~2h manuelle Arbeit pro Beratung) und ist ein starkes Differenzierungsmerkmal gegenüber dem Wettbewerb laut Marktanalyse.
-
----
-
-## 14. KI-Funktionalitäten — Parallelentwicklung
-
-> Diese Funktionen sind **nicht Teil von Welle 4 oder 5** und werden nicht im 16h-Budget berücksichtigt. Sie eignen sich für ein paralleles Entwicklerteam und können in späteren Wellen integriert werden.
-
-### 14.1 KI für den Berater (parallel zu Welle 4)
-
-| Funktion | Nutzen für den Berater | Schätzung | Integrierbar ab |
-|---|---|---|---|
-| **Smarte Formularvorschläge** | KI schlägt Feldwerte im GEG-Formular vor (basierend auf Gebäudetyp + Baujahr) — reduziert Eingabefehler und Erfassungszeit | ~1h | Welle 5 |
-| **GEG-Assistent (Chatbot im Formular)** | Kontextueller Chat-Assistent erklärt Fachbegriffe direkt im Formular ("Was ist das Hüllflächenverhältnis?") — weniger Nachschlagen, schnellere Begehung | ~1,5h | Welle 5 |
-| **Foto-Analyse via Vision-API** | Automatische Erkennung von Baumängeln aus Vor-Ort-Fotos (z.B. OpenAI Vision) — Berater erhält direkt Hinweise auf relevante Schwachstellen | ~2h | Welle 6 |
-| **OCR für Dokumente** | Energierechnungen und Baupläne automatisch auslesen und Felder vorausfüllen — eliminiert manuelle Dateneingabe | ~3h | Welle 6 |
-
-**Empfehlung:** *Formularvorschläge* + *GEG-Assistent* (~2,5h gesamt) haben den höchsten ROI pro Aufwandsstunde und lassen sich nahtlos in das bereits geplante GEG-Formular integrieren.
-
----
-
-### 14.2 KI für den Kunden (parallel zu Welle 5)
-
-| Funktion | Nutzen für den Kunden | Schätzung | Integrierbar ab |
-|---|---|---|---|
-| **Förder-Erklärung in Einfachsprache** | KI übersetzt den technischen Förder-Navigator-Output in verständliches Deutsch für Laien — höhere Kundenzufriedenheit und weniger Rückfragen an den Berater | ~1h | Welle 5 |
-| **Automatische Projektzusammenfassung** | KI generiert einen lesbaren Statusbericht für den Kunden aus den Berater-Eingaben — spart dem Berater manuelle Berichtsarbeit | ~1,5h | Welle 5 |
-| **Kunden-Chatbot** | Beantwortet Standardfragen zum Projektstatus auf Basis der Projektdaten ("Wann erhalte ich meinen Bericht?") — entlastet den Berater von Routinekommunikation | ~2h | Welle 6 |
-| **Renovierungs-Roadmap** | KI erstellt eine priorisierte Maßnahmenliste basierend auf Gebäudedaten und Kundenbudget — zentraler USP der App gegenüber dem Wettbewerb | ~2h | Welle 6 |
-
-**Empfehlung:** *Förder-Erklärung in Einfachsprache* + *Automatische Projektzusammenfassung* (~2,5h gesamt) nutzen die in Welle 5 bereits vorhandenen Daten optimal und sind direkt integrierbar.
-
----
-
-### 14.3 Technische Basis für alle KI-Funktionen
-
-| Aspekt | Entscheidung |
-|---|---|
-| **KI-Provider** | OpenAI API (GPT-4o / GPT-4o-mini je nach Kostenanforderung) |
-| **Integration** | Server-Side API-Route in Next.js (kein API-Key im Frontend) |
-| **Datenschutz** | Keine personenbezogenen Daten an OpenAI — nur strukturierte Gebäudedaten und anonymisierte Projektinfos |
-| **Kosten** | GPT-4o-mini: ~0,15 USD / 1M Input-Token — bei < 100 Nutzern vernachlässigbar |
+| Feature | Beschreibung | Schätzung |
+|---|---|---|
+| **KI-Plausibilitätsprüfung Gebäudeerfassung** | KI prüft nach Vor-Ort-Erfassung automatisch auf Vollständigkeit, Plausibilität und GEG-Konformität — markiert Widersprüche und fehlende Pflichtfelder vor Formularabschluss | ~4h |
+| **Geführte Dokumentenerfassung** | Berater legt förderungsspezifische Dokumenten-Checkliste an → Kunde erhält Link mit Schritt-für-Schritt-Anleitung → KI prüft ob hochgeladenes Dokument dem erwarteten Typ entspricht → Fortschrittsanzeige für Berater und Kunden | ~6h |
+| **Digitales Energieausweis-Datenblatt** | Online-Formular für Verbrauchs-/Bedarfsausweis-Datenerfassung durch Kunden (basierend auf bestehendem Adobe-Pro-PDF von Praczka & Pinneger) | ~2h |
+| **Baubegleitung-Checklisten** | Digitale Abhaklisten je Projektphase (Baubegleitung) — Berater hakt Schritte ab, Fortschritt sichtbar im Dashboard | ~3h |
+| **Kundenportal mit Login** | Separater Kunden-Login, Projektstatus-Ansicht (read-only) — verschoben wegen Zielgruppen-Einschränkung (80% der Kunden > 40 Jahre, digital wenig affin) | ~5,5h |
+| **BAFA-Live-API** | Echtzeit-Abfrage der aktuellen Förderbedingungen direkt bei BAFA/KfW statt regelbasierter Logik | ~5h |
+| **iSFP-Generierung per KI** | Automatische Erstellung des individuellen Sanierungsfahrplans (iSFP) als PDF auf Basis der erfassten Gebäudedaten | ~8h |
+| **E-Rechnung (XRechnung)** | Digitale Rechnungserstellung im XRechnung-Format für öffentliche Auftraggeber | ~3h |
+| **Lead-Widget** | Einbettbares Kontaktformular für die Berater-Website — generiert direkt Leads in der App | ~4h |
+| **Geo-Routing** | Entfernungsberechnung und Routenplanung zu Kundenobjekten (Google Maps / OpenStreetMap) | ~3h |
+| **Mandantenfähigkeit** | Mehrere Berater in einem geteilten Büro-Account — gemeinsame Projektbasis, rollenbasierte Zugriffsrechte | ~10h |
