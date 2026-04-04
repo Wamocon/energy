@@ -94,10 +94,10 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
         {nextStep && (
           <div className="mt-4 rounded-lg bg-orange-50 px-4 py-3 text-sm text-orange-700">
-            <strong>NÃ¤chster Schritt:</strong>{' '}
+            <strong>Nächster Schritt:</strong>{' '}
             {nextStep.label === 'Begehung' && (
               <Link href={`/dashboard/projects/${project.id}/inspection`} className="font-semibold underline underline-offset-2">
-                Begehungsformular Ã¶ffnen
+                Begehungsformular öffnen
               </Link>
             )}
             {nextStep.label === 'Fotos' && (
@@ -105,7 +105,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 Fotos hochladen
               </Link>
             )}
-            {nextStep.label === 'Abgeschlossen' && <span>Projekt auf â€žAbgeschlossen&rdquo; setzen</span>}
+            {nextStep.label === 'Abgeschlossen' && <span>Projekt auf „Abgeschlossen&rdquo; setzen</span>}
           </div>
         )}
       </div>
@@ -180,11 +180,11 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* Building summary */}
       {building && (
         <div className="mt-4 rounded-xl border border-zinc-200 bg-white p-6">
-          <h2 className="mb-4 font-semibold text-zinc-900">GebÃ¤ude-Ãœbersicht</h2>
+          <h2 className="mb-4 font-semibold text-zinc-900">Gebäude-Übersicht</h2>
           <dl className="grid gap-3 text-sm sm:grid-cols-2">
             {building.building_type && (
               <div className="flex justify-between border-b border-zinc-100 pb-2">
-                <dt className="text-zinc-500">GebÃ¤udetyp</dt>
+                <dt className="text-zinc-500">Gebäudetyp</dt>
                 <dd className="font-medium text-zinc-900">{building.building_type}</dd>
               </div>
             )}
@@ -196,8 +196,8 @@ export default async function ProjectDetailPage({ params }: Props) {
             )}
             {building.living_area && (
               <div className="flex justify-between border-b border-zinc-100 pb-2">
-                <dt className="text-zinc-500">WohnflÃ¤che</dt>
-                <dd className="font-medium text-zinc-900">{building.living_area} mÂ²</dd>
+                <dt className="text-zinc-500">Wohnfläche</dt>
+                <dd className="font-medium text-zinc-900">{building.living_area} m²</dd>
               </div>
             )}
             {building.heating_type && (

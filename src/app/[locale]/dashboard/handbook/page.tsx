@@ -116,33 +116,6 @@ const SECTIONS: HandbookSection[] = [
   },
 ];
 
-function buildMarkdown(sections: HandbookSection[]): string {
-  const lines: string[] = [
-    '# Energieberater-App — Produkthandbuch',
-    '',
-    `_Stand: ${new Date().toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })}_`,
-    '',
-    '---',
-    '',
-  ];
-
-  for (const section of sections) {
-    lines.push(`## ${section.icon} ${section.title}`, '');
-    for (const line of section.content) {
-      lines.push(line, '');
-    }
-    if (section.steps) {
-      for (let i = 0; i < section.steps.length; i++) {
-        lines.push(`${i + 1}. ${section.steps[i]}`);
-      }
-      lines.push('');
-    }
-    lines.push('---', '');
-  }
-
-  return lines.join('\n');
-}
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
@@ -156,8 +129,6 @@ export default async function HandbookPage({ params }: Props) {
 
   if (!user) redirect(`/${locale}/auth/login`);
 
-  const markdown = buildMarkdown(SECTIONS);
-
   return (
     <div className="mx-auto max-w-3xl">
       <div className="mb-6">
@@ -167,7 +138,7 @@ export default async function HandbookPage({ params }: Props) {
         </p>
       </div>
 
-      <HandbookClient sections={SECTIONS} markdownContent={markdown} />
+      <HandbookClient sections={SECTIONS} />
     </div>
   );
 }
