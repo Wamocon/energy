@@ -22,7 +22,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-white dark:bg-zinc-950">{children}</body>
+      <body className="min-h-full bg-white">{children}</body>
     </html>
   );
 }

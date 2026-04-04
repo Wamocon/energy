@@ -44,31 +44,32 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 px-6 dark:bg-zinc-950">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 px-6">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <Link href="/" className="mb-4 inline-block text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-            ⚡ Energieberater
-          </Link>
-          <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">{t('loginTitle')}</h1>
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-white"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h1 className="text-xl font-semibold text-zinc-900">{t('loginTitle')}</h1>
+          <p className="mt-1 text-sm text-zinc-500">Anmelden um fortzufahren</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {serverError && (
-            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950/50 dark:text-red-400">
+            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
               {serverError}
             </div>
           )}
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <label className="mb-1.5 block text-sm font-medium text-zinc-700">
               {t('email')}
             </label>
             <input
               type="email"
               autoComplete="email"
               {...register('email')}
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
+              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
             />
             {errors.email && (
               <p className="mt-1 text-xs text-red-600">{t('errors.invalidEmail')}</p>
@@ -76,14 +77,17 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-              {t('password')}
-            </label>
+            <div className="mb-1.5 flex items-center justify-between">
+              <label className="text-sm font-medium text-zinc-700">{t('password')}</label>
+              <Link href="/auth/forgot-password" className="text-xs text-orange-500 hover:text-orange-600">
+                Passwort vergessen?
+              </Link>
+            </div>
             <input
               type="password"
               autoComplete="current-password"
               {...register('password')}
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
+              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
             />
             {errors.password && (
               <p className="mt-1 text-xs text-red-600">{t('errors.minPassword')}</p>
@@ -93,18 +97,15 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            className="w-full rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-orange-600 disabled:opacity-50"
           >
-            {isSubmitting ? `${t('loginButton')}...` : t('loginButton')}
+            {isSubmitting ? 'Anmelden…' : t('loginButton')}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-6 text-center text-sm text-zinc-500">
           {t('noAccount')}{' '}
-          <Link
-            href="/auth/register"
-            className="font-medium text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50"
-          >
+          <Link href="/auth/register" className="font-medium text-orange-500 hover:text-orange-600">
             {t('registerLink')}
           </Link>
         </p>
@@ -112,3 +113,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

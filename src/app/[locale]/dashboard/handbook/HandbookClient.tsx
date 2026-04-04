@@ -64,7 +64,7 @@ export function HandbookClient({ sections, markdownContent }: Props) {
       {/* Results */}
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-zinc-200 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-900">
-          <p className="text-sm text-zinc-500">Keine Einträge für „{query}" gefunden.</p>
+          <p className="text-sm text-zinc-500">Keine Einträge für „{query}&rdquo; gefunden.</p>
         </div>
       ) : (
         <div className="space-y-4">
