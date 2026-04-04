@@ -41,6 +41,12 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">⚡ Energieberater</span>
           <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard/handbook"
+              className="hidden text-sm text-zinc-500 hover:text-zinc-900 sm:block dark:text-zinc-400 dark:hover:text-zinc-50"
+            >
+              📖 Handbuch
+            </Link>
             <span className="hidden text-sm text-zinc-500 sm:block">{user.email}</span>
             <LogoutButton />
           </div>

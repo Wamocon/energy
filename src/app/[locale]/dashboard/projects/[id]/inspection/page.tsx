@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { InspectionForm } from './InspectionForm';
+import type { ProjectPhoto } from '@/lib/db/types';
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -27,6 +28,13 @@ export default async function InspectionPage({ params }: Props) {
   if (!project) notFound();
 
   const building = project.buildings?.[0] ?? null;
+
+  const { data: photos } = await supabase
+    .from('project_photos')
+    .select('*')
+    .eq('project_id', id)
+    .order('created_at', { ascending: false });
+
   const t = await getTranslations('inspection');
 
   return (
@@ -49,7 +57,12 @@ export default async function InspectionPage({ params }: Props) {
           <p className="mt-1 text-sm text-zinc-500">{t('subtitle')}</p>
         </div>
 
-        <InspectionForm projectId={id} building={building} />
+        <InspectionForm
+          projectId={id}
+          building={building}
+          userId={user.id}
+          initialPhotos={(photos as ProjectPhoto[]) ?? []}
+        />
       </main>
     </div>
   );
