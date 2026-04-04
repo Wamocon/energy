@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { HandbookClient } from './HandbookClient';
 import type { HandbookSection } from './HandbookClient';
@@ -117,72 +116,30 @@ const SECTIONS: HandbookSection[] = [
   },
 ];
 
-function buildMarkdown(sections: HandbookSection[]): string {
-  const lines: string[] = [
-    '# Energieberater-App — Produkthandbuch',
-    '',
-    `_Stand: ${new Date().toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })}_`,
-    '',
-    '---',
-    '',
-  ];
-
-  for (const section of sections) {
-    lines.push(`## ${section.icon} ${section.title}`, '');
-    for (const line of section.content) {
-      lines.push(line, '');
-    }
-    if (section.steps) {
-      for (let i = 0; i < section.steps.length; i++) {
-        lines.push(`${i + 1}. ${section.steps[i]}`);
-      }
-      lines.push('');
-    }
-    lines.push('---', '');
-  }
-
-  return lines.join('\n');
-}
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
 export default async function HandbookPage({ params }: Props) {
-  const { locale: _locale } = await params;
+  const { locale } = await params;
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect('/auth/login');
-
-  const markdown = buildMarkdown(SECTIONS);
+  if (!user) redirect(`/${locale}/auth/login`);
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mx-auto flex max-w-3xl items-center px-6 py-4">
-          <Link
-            href="/dashboard"
-            className="mr-4 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-          >
-            ← Dashboard
-          </Link>
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">⚡ Energieberater</span>
-        </div>
-      </header>
+    <div className="mx-auto max-w-3xl">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-zinc-900">Produkthandbuch</h1>
+        <p className="mt-1 text-sm text-zinc-500">
+          Anleitung und Hilfe für alle Funktionen der Energieberater-App.
+        </p>
+      </div>
 
-      <main className="mx-auto max-w-3xl px-6 py-8">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">📖 Produkthandbuch</h1>
-          <p className="mt-1 text-sm text-zinc-500">
-            Anleitung und Hilfe für alle Funktionen der Energieberater-App.
-          </p>
-        </div>
-
-        <HandbookClient sections={SECTIONS} markdownContent={markdown} />
-      </main>
+      <HandbookClient sections={SECTIONS} />
     </div>
   );
 }
+

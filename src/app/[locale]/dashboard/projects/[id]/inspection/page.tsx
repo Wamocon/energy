@@ -1,8 +1,8 @@
 import { notFound, redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { InspectionForm } from './InspectionForm';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import type { ProjectPhoto } from '@/lib/db/types';
 
 type Props = {
@@ -38,32 +38,26 @@ export default async function InspectionPage({ params }: Props) {
   const t = await getTranslations('inspection');
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mx-auto flex max-w-3xl items-center px-6 py-4">
-          <Link
-            href={`/dashboard/projects/${id}`}
-            className="mr-4 text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-          >
-            ← {project.customer_name}
-          </Link>
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">⚡ Energieberater</span>
-        </div>
-      </header>
+    <div className="mx-auto max-w-3xl">
+      <Breadcrumbs
+        items={[
+          { label: 'Projekte', href: '/dashboard' },
+          { label: project.customer_name, href: `/dashboard/projects/${id}` },
+          { label: t('title') },
+        ]}
+      />
 
-      <main className="mx-auto max-w-3xl px-6 py-8">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{t('title')}</h1>
-          <p className="mt-1 text-sm text-zinc-500">{t('subtitle')}</p>
-        </div>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-zinc-900">{t('title')}</h1>
+        <p className="mt-1 text-sm text-zinc-500">{t('subtitle')}</p>
+      </div>
 
-        <InspectionForm
-          projectId={id}
-          building={building}
-          userId={user.id}
-          initialPhotos={(photos as ProjectPhoto[]) ?? []}
-        />
-      </main>
+      <InspectionForm
+        projectId={id}
+        building={building}
+        userId={user.id}
+        initialPhotos={(photos as ProjectPhoto[]) ?? []}
+      />
     </div>
   );
 }
