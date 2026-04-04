@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/client';
-import type { Building } from '@/lib/db/types';
+import { SectionPhotoUpload } from './SectionPhotoUpload';
+import type { Building, PhotoCategory, ProjectPhoto } from '@/lib/db/types';
 
 type FormData = {
   building_type: string;
@@ -46,9 +47,17 @@ function toInt(val: string): number | null {
 type Props = {
   projectId: string;
   building: Building | null;
+  userId: string;
+  initialPhotos: ProjectPhoto[];
 };
 
-export function InspectionForm({ projectId, building }: Props) {
+export function InspectionForm({ projectId, building, userId, initialPhotos }: Props) {
+  const photosByCategory = ([
+    'facade', 'roof', 'basement', 'heating', 'windows', 'other',
+  ] as PhotoCategory[]).reduce<Record<PhotoCategory, ProjectPhoto[]>>(
+    (acc, cat) => ({ ...acc, [cat]: initialPhotos.filter((p) => p.category === cat) }),
+    {} as Record<PhotoCategory, ProjectPhoto[]>,
+  );
   const t = useTranslations('inspection');
   const router = useRouter();
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
@@ -223,6 +232,11 @@ export function InspectionForm({ projectId, building }: Props) {
             </label>
           </div>
         </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <SectionPhotoUpload projectId={projectId} userId={userId} category="facade" categoryLabel="Fassade" initialPhotos={photosByCategory['facade']} />
+          <SectionPhotoUpload projectId={projectId} userId={userId} category="roof" categoryLabel="Dach" initialPhotos={photosByCategory['roof']} />
+          <SectionPhotoUpload projectId={projectId} userId={userId} category="basement" categoryLabel="Keller" initialPhotos={photosByCategory['basement']} />
+        </div>
       </div>
 
       {/* 3. Heizung */}
@@ -274,6 +288,7 @@ export function InspectionForm({ projectId, building }: Props) {
             </label>
           </div>
         </div>
+        <SectionPhotoUpload projectId={projectId} userId={userId} category="heating" categoryLabel="Heizung" initialPhotos={photosByCategory['heating']} />
       </div>
 
       {/* 4. Fenster */}
@@ -308,6 +323,7 @@ export function InspectionForm({ projectId, building }: Props) {
             <input type="number" step="0.01" placeholder="z.B. 1.10" {...register('window_u_value')} className={inputCls} />
           </div>
         </div>
+        <SectionPhotoUpload projectId={projectId} userId={userId} category="windows" categoryLabel="Fenster" initialPhotos={photosByCategory['windows']} />
       </div>
 
       {/* 5. Lüftung */}
@@ -331,6 +347,7 @@ export function InspectionForm({ projectId, building }: Props) {
             </label>
           </div>
         </div>
+        <SectionPhotoUpload projectId={projectId} userId={userId} category="other" categoryLabel="Lüftung" initialPhotos={photosByCategory['other']} />
       </div>
 
       {/* 6. Notizen */}
