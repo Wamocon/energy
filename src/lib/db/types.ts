@@ -10,6 +10,7 @@ export interface Profile {
   email: string | null;
   phone: string | null;
   company: string | null;
+  cert_number: string | null;
   created_at: string;
 }
 
@@ -18,10 +19,14 @@ export interface Project {
   berater_id: string;
   customer_name: string;
   customer_email: string | null;
+  customer_phone: string | null;
+  customer_notes: string | null;
   address: string;
   city: string;
   postal_code: string;
   status: ProjectStatus;
+  appointment_date: string | null;
+  inspection_date: string | null;
   created_at: string;
   updated_at: string;
 }

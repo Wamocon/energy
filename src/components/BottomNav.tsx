@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
-import { LayoutDashboard, Plus, BookOpen } from 'lucide-react';
+import { LayoutDashboard, Plus, BookOpen, UserCircle } from 'lucide-react';
 
 type Props = {
   locale: string;
@@ -12,6 +12,7 @@ const NAV = [
   { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard size={20} />, exact: true },
   { label: 'Neues Projekt', href: '/dashboard/projects/new', icon: <Plus size={20} /> },
   { label: 'Handbuch', href: '/dashboard/handbook', icon: <BookOpen size={20} /> },
+  { label: 'Profil', href: '/dashboard/profile', icon: <UserCircle size={20} /> },
 ];
 
 export function BottomNav({ locale }: Props) {

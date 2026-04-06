@@ -22,10 +22,12 @@ type BuildingTypeValue = typeof BUILDING_TYPES[number]['value'];
 const newProjectSchema = z.object({
   customer_name: z.string().min(1),
   customer_email: z.string().email().optional().or(z.literal('')),
+  customer_phone: z.string().optional().or(z.literal('')),
   address: z.string().min(1),
   city: z.string().min(1),
   postal_code: z.string().min(4),
   building_type: z.string().min(1, 'Bitte Gebäudetyp wählen'),
+  appointment_date: z.string().optional().or(z.literal('')),
 });
 
 type NewProjectData = z.infer<typeof newProjectSchema>;
@@ -59,10 +61,12 @@ export default function NewProjectPage() {
         berater_id: user.id,
         customer_name: data.customer_name,
         customer_email: data.customer_email || null,
+        customer_phone: data.customer_phone || null,
         address: data.address,
         city: data.city,
         postal_code: data.postal_code,
         status: 'new',
+        appointment_date: data.appointment_date || null,
       })
       .select()
       .single();
@@ -135,6 +139,10 @@ export default function NewProjectPage() {
               <input type="email" {...register('customer_email')} className={inputCls} />
               {errors.customer_email && <p className="mt-1 text-xs text-red-600">{t('invalidEmail')}</p>}
             </div>
+            <div className="sm:col-span-2">
+              <label className={labelCls}>Telefonnummer</label>
+              <input type="tel" placeholder="+49 151 12345678" {...register('customer_phone')} className={inputCls} />
+            </div>
           </div>
         </div>
 
@@ -156,6 +164,15 @@ export default function NewProjectPage() {
               <input type="text" placeholder="Berlin" {...register('city')} className={inputCls} />
               {errors.city && <p className="mt-1 text-xs text-red-600">Pflichtfeld</p>}
             </div>
+          </div>
+        </div>
+
+        {/* Terminplanung */}
+        <div className="rounded-xl border border-zinc-200 bg-white p-6">
+          <h2 className="mb-4 font-semibold text-zinc-900">Terminplanung</h2>
+          <div>
+            <label className={labelCls}>Begehungstermin (geplant)</label>
+            <input type="date" {...register('appointment_date')} className={inputCls} />
           </div>
         </div>
 

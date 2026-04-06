@@ -37,6 +37,11 @@ const NAV_ITEMS: NavItem[] = [
     href: '/dashboard/handbook',
     icon: <BookOpen size={18} />,
   },
+  {
+    label: 'Profil',
+    href: '/dashboard/profile',
+    icon: <UserCircle size={18} />,
+  },
 ];
 
 type Props = {
