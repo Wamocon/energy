@@ -85,16 +85,16 @@ export function PhotoUpload({ projectId, userId, initialPhotos }: Props) {
   }
 
   const inputCls =
-    'w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50';
+    'w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400';
 
   return (
     <div className="space-y-6">
       {/* Upload form */}
-      <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="mb-4 font-semibold text-zinc-900 dark:text-zinc-50">{t('upload')}</h2>
+      <div className="rounded-xl border border-zinc-200 bg-white p-6">
+        <h2 className="mb-4 font-semibold text-zinc-900">{t('upload')}</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <label className="mb-1.5 block text-sm font-medium text-zinc-700">
               {t('category')}
             </label>
             <select
@@ -110,7 +110,7 @@ export function PhotoUpload({ projectId, userId, initialPhotos }: Props) {
             </select>
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <label className="mb-1.5 block text-sm font-medium text-zinc-700">
               {t('description')}
             </label>
             <input
@@ -124,9 +124,9 @@ export function PhotoUpload({ projectId, userId, initialPhotos }: Props) {
 
         <div className="mt-4">
           <p className="mb-2 text-xs text-zinc-400">{t('maxSize')}</p>
-          <label className="flex cursor-pointer items-center gap-3 rounded-lg border-2 border-dashed border-zinc-300 p-6 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:hover:border-zinc-600">
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border-2 border-dashed border-zinc-300 p-6 transition-colors hover:border-zinc-400">
             <span className="text-2xl">📷</span>
-            <span className="text-sm text-zinc-600 dark:text-zinc-400">
+            <span className="text-sm text-zinc-600">
               {uploadState === 'uploading' ? t('uploading') : t('upload')}
             </span>
             <input
@@ -149,14 +149,14 @@ export function PhotoUpload({ projectId, userId, initialPhotos }: Props) {
       </div>
 
       {/* Photo list */}
-      <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="mb-4 font-semibold text-zinc-900 dark:text-zinc-50">
+      <div className="rounded-xl border border-zinc-200 bg-white p-6">
+        <h2 className="mb-4 font-semibold text-zinc-900">
           {t('uploaded', { count: photos.length })}
         </h2>
         {photos.length === 0 ? (
           <p className="text-sm text-zinc-500">{t('noPhotos')}</p>
         ) : (
-          <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
+          <div className="divide-y divide-zinc-100">
             {photos.map((photo) => (
               <PhotoRow key={photo.id} photo={photo} onDelete={handleDelete} getSignedUrl={getSignedUrl} t={t} />
             ))}
@@ -186,7 +186,7 @@ function PhotoRow({
   return (
     <div className="flex items-center justify-between py-3">
       <div>
-        <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
+        <span className="text-sm font-medium text-zinc-900">
           {t(`categories.${photo.category}`)}
         </span>
         {photo.description && (
@@ -199,13 +199,13 @@ function PhotoRow({
       <div className="flex gap-3">
         <button
           onClick={handleView}
-          className="text-xs font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+          className="text-xs font-medium text-zinc-600 hover:text-zinc-900"
         >
           {t('view')}
         </button>
         <button
           onClick={() => onDelete(photo)}
-          className="text-xs font-medium text-red-500 hover:text-red-700 dark:hover:text-red-400"
+          className="text-xs font-medium text-red-500 hover:text-red-700"
         >
           {t('delete')}
         </button>
