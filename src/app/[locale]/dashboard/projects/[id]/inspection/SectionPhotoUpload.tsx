@@ -85,7 +85,7 @@ export function SectionPhotoUpload({ projectId, userId, category, categoryLabel,
           📷 {categoryLabel}{photos.length > 0 ? ` (${photos.length})` : ''}
         </span>
         <label
-          className={`flex cursor-pointer items-center gap-1 rounded-md border border-zinc-300 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 ${uploadState === 'uploading' ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`flex cursor-pointer items-center gap-1 rounded-md border border-zinc-300 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-100 ${uploadState === 'uploading' ? 'cursor-not-allowed opacity-50' : ''}`}
         >
           {uploadState === 'uploading' ? '⏳' : '+ Foto'}
           <input
@@ -109,11 +109,11 @@ export function SectionPhotoUpload({ projectId, userId, category, categoryLabel,
       {photos.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {photos.map((photo) => (
-            <div key={photo.id} className="group relative">
+            <div key={photo.id} className="relative">
               <button
                 type="button"
                 onClick={() => handleView(photo.file_path)}
-                className="flex h-14 w-14 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-xl transition-colors hover:bg-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+                className="flex h-14 w-14 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-xl transition-colors hover:bg-zinc-200"
                 title="Foto ansehen"
               >
                 🖼️
@@ -121,7 +121,7 @@ export function SectionPhotoUpload({ projectId, userId, category, categoryLabel,
               <button
                 type="button"
                 onClick={() => handleDelete(photo)}
-                className="absolute -right-1.5 -top-1.5 hidden h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white group-hover:flex"
+                className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white hover:bg-red-600"
                 title="Foto löschen"
               >
                 ×

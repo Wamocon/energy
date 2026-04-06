@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import {
   LayoutDashboard,
-  FolderOpen,
   Plus,
   BookOpen,
   LogOut,
@@ -26,12 +25,6 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Dashboard',
     href: '/dashboard',
     icon: <LayoutDashboard size={18} />,
-    exact: true,
-  },
-  {
-    label: 'Projekte',
-    href: '/dashboard',
-    icon: <FolderOpen size={18} />,
     exact: true,
   },
   {

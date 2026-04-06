@@ -6,7 +6,40 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { SectionPhotoUpload } from './SectionPhotoUpload';
+import { ChevronDown } from 'lucide-react';
 import type { Building, PhotoCategory, ProjectPhoto } from '@/lib/db/types';
+
+type SectionProps = {
+  idx: number;
+  openSection: number;
+  onToggle: (idx: number) => void;
+  icon: string;
+  title: string;
+  children: React.ReactNode;
+};
+
+function AccordionSection({ idx, openSection, onToggle, icon, title, children }: SectionProps) {
+  const isOpen = openSection === idx;
+  return (
+    <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
+      <button
+        type="button"
+        onClick={() => onToggle(idx)}
+        className="flex w-full items-center justify-between px-5 py-4 text-left"
+      >
+        <span className="flex items-center gap-2 text-sm font-semibold text-zinc-900">
+          <span>{icon}</span>
+          {title}
+        </span>
+        <ChevronDown
+          size={16}
+          className={`shrink-0 text-zinc-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
+      {isOpen && <div className="border-t border-zinc-100 px-5 pb-5 pt-4">{children}</div>}
+    </div>
+  );
+}
 
 type FormData = {
   building_type: string;
@@ -61,6 +94,11 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
   const t = useTranslations('inspection');
   const router = useRouter();
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [openSection, setOpenSection] = useState<number>(0);
+
+  function toggleSection(idx: number) {
+    setOpenSection((prev) => (prev === idx ? -1 : idx));
+  }
 
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -139,18 +177,15 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
   }
 
   const inputCls =
-    'w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50';
+    'w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400';
   const selectCls = inputCls;
-  const labelCls = 'mb-1.5 block text-sm font-medium text-zinc-700 dark:text-zinc-300';
-  const checkboxCls = 'h-4 w-4 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-500 dark:border-zinc-600';
-  const sectionCls = 'rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900';
-  const sectionTitleCls = 'mb-4 text-base font-semibold text-zinc-900 dark:text-zinc-50';
+  const labelCls = 'mb-1.5 block text-sm font-medium text-zinc-700';
+  const checkboxCls = 'h-4 w-4 rounded border-zinc-300 text-orange-500 focus:ring-orange-400';
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
       {/* 1. Gebäudedaten */}
-      <div className={sectionCls}>
-        <h2 className={sectionTitleCls}>🏠 {t('sections.building')}</h2>
+      <AccordionSection idx={0} openSection={openSection} onToggle={toggleSection} icon="🏠" title={t('sections.building')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label className={labelCls}>{t('building.type')}</label>
@@ -176,16 +211,13 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
           </div>
           <div className="flex items-center gap-3 pt-6">
             <input type="checkbox" id="has_basement" {...register('has_basement')} className={checkboxCls} />
-            <label htmlFor="has_basement" className="text-sm text-zinc-700 dark:text-zinc-300">
-              {t('building.basement')}
-            </label>
+            <label htmlFor="has_basement" className="text-sm text-zinc-700">{t('building.basement')}</label>
           </div>
         </div>
-      </div>
+      </AccordionSection>
 
       {/* 2. Gebäudehülle */}
-      <div className={sectionCls}>
-        <h2 className={sectionTitleCls}>🧱 {t('sections.envelope')}</h2>
+      <AccordionSection idx={1} openSection={openSection} onToggle={toggleSection} icon="🧱" title={t('sections.envelope')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelCls}>{t('envelope.facadeMaterial')}</label>
@@ -200,9 +232,7 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
           </div>
           <div className="flex items-center gap-3 pt-6">
             <input type="checkbox" id="facade_insulated" {...register('facade_insulated')} className={checkboxCls} />
-            <label htmlFor="facade_insulated" className="text-sm text-zinc-700 dark:text-zinc-300">
-              {t('envelope.facadeInsulated')}
-            </label>
+            <label htmlFor="facade_insulated" className="text-sm text-zinc-700">{t('envelope.facadeInsulated')}</label>
           </div>
           <div>
             <label className={labelCls}>{t('envelope.facadeInsulationThickness')}</label>
@@ -221,27 +251,22 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
           </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" id="roof_insulated" {...register('roof_insulated')} className={checkboxCls} />
-            <label htmlFor="roof_insulated" className="text-sm text-zinc-700 dark:text-zinc-300">
-              {t('envelope.roofInsulated')}
-            </label>
+            <label htmlFor="roof_insulated" className="text-sm text-zinc-700">{t('envelope.roofInsulated')}</label>
           </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" id="basement_ceiling_insulated" {...register('basement_ceiling_insulated')} className={checkboxCls} />
-            <label htmlFor="basement_ceiling_insulated" className="text-sm text-zinc-700 dark:text-zinc-300">
-              {t('envelope.basementCeilingInsulated')}
-            </label>
+            <label htmlFor="basement_ceiling_insulated" className="text-sm text-zinc-700">{t('envelope.basementCeilingInsulated')}</label>
           </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
           <SectionPhotoUpload projectId={projectId} userId={userId} category="facade" categoryLabel="Fassade" initialPhotos={photosByCategory['facade']} />
           <SectionPhotoUpload projectId={projectId} userId={userId} category="roof" categoryLabel="Dach" initialPhotos={photosByCategory['roof']} />
           <SectionPhotoUpload projectId={projectId} userId={userId} category="basement" categoryLabel="Keller" initialPhotos={photosByCategory['basement']} />
         </div>
-      </div>
+      </AccordionSection>
 
       {/* 3. Heizung */}
-      <div className={sectionCls}>
-        <h2 className={sectionTitleCls}>🔥 {t('sections.heating')}</h2>
+      <AccordionSection idx={2} openSection={openSection} onToggle={toggleSection} icon="🔥" title={t('sections.heating')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelCls}>{t('heating.type')}</label>
@@ -283,17 +308,16 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
           </div>
           <div className="flex items-center gap-3">
             <input type="checkbox" id="has_solar_thermal" {...register('has_solar_thermal')} className={checkboxCls} />
-            <label htmlFor="has_solar_thermal" className="text-sm text-zinc-700 dark:text-zinc-300">
-              {t('heating.solarThermal')}
-            </label>
+            <label htmlFor="has_solar_thermal" className="text-sm text-zinc-700">{t('heating.solarThermal')}</label>
           </div>
         </div>
-        <SectionPhotoUpload projectId={projectId} userId={userId} category="heating" categoryLabel="Heizung" initialPhotos={photosByCategory['heating']} />
-      </div>
+        <div className="mt-4">
+          <SectionPhotoUpload projectId={projectId} userId={userId} category="heating" categoryLabel="Heizung" initialPhotos={photosByCategory['heating']} />
+        </div>
+      </AccordionSection>
 
       {/* 4. Fenster */}
-      <div className={sectionCls}>
-        <h2 className={sectionTitleCls}>🪟 {t('sections.windows')}</h2>
+      <AccordionSection idx={3} openSection={openSection} onToggle={toggleSection} icon="🪟" title={t('sections.windows')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelCls}>{t('windows.type')}</label>
@@ -323,12 +347,13 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
             <input type="number" step="0.01" placeholder="z.B. 1.10" {...register('window_u_value')} className={inputCls} />
           </div>
         </div>
-        <SectionPhotoUpload projectId={projectId} userId={userId} category="windows" categoryLabel="Fenster" initialPhotos={photosByCategory['windows']} />
-      </div>
+        <div className="mt-4">
+          <SectionPhotoUpload projectId={projectId} userId={userId} category="windows" categoryLabel="Fenster" initialPhotos={photosByCategory['windows']} />
+        </div>
+      </AccordionSection>
 
       {/* 5. Lüftung */}
-      <div className={sectionCls}>
-        <h2 className={sectionTitleCls}>💨 {t('sections.ventilation')}</h2>
+      <AccordionSection idx={4} openSection={openSection} onToggle={toggleSection} icon="💨" title={t('sections.ventilation')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelCls}>{t('ventilation.type')}</label>
@@ -342,36 +367,48 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
           </div>
           <div className="flex items-center gap-3 pt-6">
             <input type="checkbox" id="has_heat_recovery" {...register('has_heat_recovery')} className={checkboxCls} />
-            <label htmlFor="has_heat_recovery" className="text-sm text-zinc-700 dark:text-zinc-300">
-              {t('ventilation.heatRecovery')}
-            </label>
+            <label htmlFor="has_heat_recovery" className="text-sm text-zinc-700">{t('ventilation.heatRecovery')}</label>
           </div>
         </div>
-        <SectionPhotoUpload projectId={projectId} userId={userId} category="other" categoryLabel="Lüftung" initialPhotos={photosByCategory['other']} />
-      </div>
+        <div className="mt-4">
+          <SectionPhotoUpload projectId={projectId} userId={userId} category="other" categoryLabel="Lüftung" initialPhotos={photosByCategory['other']} />
+        </div>
+      </AccordionSection>
 
       {/* 6. Notizen */}
-      <div className={sectionCls}>
-        <h2 className={sectionTitleCls}>📝 {t('sections.notes')}</h2>
+      <AccordionSection idx={5} openSection={openSection} onToggle={toggleSection} icon="📝" title={t('sections.notes')}>
         <textarea
           rows={4}
           {...register('notes')}
           placeholder={t('notes')}
-          className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
+          className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
         />
-      </div>
+      </AccordionSection>
 
-      {/* Submit */}
+      {/* Error message */}
       {saveState === 'error' && (
         <p className="text-sm text-red-600">Fehler beim Speichern. Bitte erneut versuchen.</p>
       )}
+
+      {/* Desktop save button */}
       <button
         type="submit"
         disabled={saveState === 'saving'}
-        className="rounded-lg bg-zinc-900 px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+        className="hidden rounded-lg bg-orange-500 px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-orange-600 disabled:opacity-50 sm:block"
       >
         {saveState === 'saving' ? t('saving') : t('save')}
       </button>
+
+      {/* Sticky mobile save button */}
+      <div className="fixed inset-x-0 bottom-16 z-30 border-t border-zinc-200 bg-white p-3 sm:hidden">
+        <button
+          type="submit"
+          disabled={saveState === 'saving'}
+          className="w-full rounded-lg bg-orange-500 py-3 text-sm font-semibold text-white transition-colors hover:bg-orange-600 disabled:opacity-50"
+        >
+          {saveState === 'saving' ? t('saving') : t('save')}
+        </button>
+      </div>
     </form>
   );
 }

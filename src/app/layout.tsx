@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -10,6 +10,16 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "Energieberater",
   description: "Digitale Energieberatung für Profis",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Energieberater",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f97316",
 };
 
 export default function RootLayout({

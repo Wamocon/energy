@@ -4,13 +4,8 @@ import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { ClipboardList, Camera, CheckCircle2, ArrowRight, User, MapPin, Calendar, Building2 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { StatusDropdown } from './StatusDropdown';
 import type { ProjectStatus } from '@/lib/db/types';
-
-const statusColours: Record<ProjectStatus, string> = {
-  new: 'bg-blue-50 text-blue-700',
-  in_progress: 'bg-amber-50 text-amber-700',
-  completed: 'bg-green-50 text-green-700',
-};
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -42,7 +37,6 @@ export default async function ProjectDetailPage({ params }: Props) {
   const building = project.buildings?.[0] ?? null;
   const hasPhotos = (photoCount ?? 0) > 0;
   const t = await getTranslations('project.detail');
-  const tDash = await getTranslations('dashboard');
 
   // Workflow steps
   const steps = [
@@ -64,9 +58,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           <h1 className="text-2xl font-bold text-zinc-900">{project.customer_name}</h1>
           <p className="mt-0.5 text-sm text-zinc-500">{project.address}, {project.postal_code} {project.city}</p>
         </div>
-        <span className={`mt-1 inline-block rounded-full px-3 py-1 text-sm font-medium ${statusColours[project.status as ProjectStatus]}`}>
-          {tDash(`status.${project.status}`)}
-        </span>
+        <StatusDropdown projectId={project.id} currentStatus={project.status as ProjectStatus} />
       </div>
 
       {/* Workflow tracker */}
