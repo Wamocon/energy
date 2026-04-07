@@ -286,7 +286,7 @@ function InspectionTab({ building, projectId }: { building: Building | null; pro
         {/* Fenster */}
         <SectionHeading icon={<Square size={14} />} title="Fenster" />
         {building.window_type && <Row name="Verglasung" value={label(WINDOW_TYPE, building.window_type)} />}
-        {building.window_frame_material && <Row name="Rahmen材料" value={building.window_frame_material} />}
+        {building.window_frame_material && <Row name="Rahmenmaterial" value={building.window_frame_material} />}
         {building.window_u_value && <Row name="U-Wert" value={`${building.window_u_value} W/(m²K)`} />}
         {building.window_g_value && <Row name="g-Wert" value={String(building.window_g_value)} />}
 
