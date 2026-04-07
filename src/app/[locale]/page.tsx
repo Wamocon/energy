@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 
 export default async function LandingPage() {
   const t = await getTranslations();
@@ -9,10 +10,10 @@ export default async function LandingPage() {
       {/* Navigation */}
       <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-blue-800 text-white text-xs font-bold">S</span>
-            Saniatlas
-          </span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={36} height={36} className="rounded-lg" />
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">Saniatlas</span>
+          </Link>
           <nav className="flex items-center gap-3">
             <Link
               href="/auth/login"

@@ -1,11 +1,15 @@
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 
 export default function ImpressumPage() {
   return (
     <div className="min-h-screen bg-zinc-50">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-zinc-900">Saniatlas</Link>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={32} height={32} className="rounded-lg" />
+            <span className="text-lg font-bold text-zinc-900">Saniatlas</span>
+          </Link>
           <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900">← Zurück</Link>
         </div>
       </header>

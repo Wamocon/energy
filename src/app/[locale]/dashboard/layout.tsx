@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { Sidebar } from '@/components/Sidebar';
 import { BottomNav } from '@/components/BottomNav';
 import { ToastProvider } from '@/components/Toast';
-import { Shield } from 'lucide-react';
+import Image from 'next/image';
 
 type Props = {
   children: React.ReactNode;
@@ -31,9 +31,7 @@ export default async function DashboardLayout({ children, params }: Props) {
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Mobile top bar */}
           <header className="flex h-14 shrink-0 items-center gap-2.5 border-b border-zinc-200 bg-white px-4 md:hidden">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-800">
-              <Shield size={14} className="text-white" />
-            </div>
+            <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={32} height={32} className="rounded-lg shrink-0" />
             <span className="text-sm font-bold text-zinc-900">Saniatlas</span>
           </header>
 
