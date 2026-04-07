@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Link } from '@/i18n/navigation';
+import { createClient } from '@/lib/supabase/client';
 import {
   User, MapPin, Calendar, Phone, ClipboardList, Camera,
   ArrowRight, FileDown, Home, Flame, Wind, Square, StickyNote,
@@ -399,6 +400,36 @@ function ActionsTab({
   async function handlePdfExport() {
     setPdfState('generating');
     try {
+      // ── Signed URLs für alle Fotos vorab laden ────────────────────────────
+      const supabase = createClient();
+      const signedUrlMap: Record<string, string> = {};
+      if (photos.length > 0) {
+        const { data: signedData } = await supabase.storage
+          .from('project-photos')
+          .createSignedUrls(photos.map((p) => p.file_path), 120);
+        if (signedData) {
+          signedData.forEach((item, i) => {
+            if (item.signedUrl) signedUrlMap[photos[i].file_path] = item.signedUrl;
+          });
+        }
+      }
+
+      async function imageToBase64(url: string): Promise<string | null> {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) return null;
+          const blob = await res.blob();
+          return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        } catch {
+          return null;
+        }
+      }
+
       const { jsPDF } = await import('jspdf');
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
@@ -546,16 +577,61 @@ function ActionsTab({
         }
       }
 
-      // ── Fotos summary ─────────────────────────────────────────────────────
+      // ── Fotos ─────────────────────────────────────────────────────────────
       if (photos.length > 0) {
-        checkPage();
-        sectionTitle('Fotos');
-        addRow('Gesamtzahl Fotos', String(photos.length));
-        const categories = ['facade', 'roof', 'basement', 'heating', 'windows', 'other'] as const;
-        categories.forEach((cat) => {
-          const count = photos.filter((p) => p.category === cat).length;
-          if (count > 0) addRow(PHOTO_CATEGORY_LABELS[cat], String(count));
-        });
+        const imgW = 54;
+        const imgH = 41;
+        const gap = 3;
+        const cols = 3;
+        const photoCategories = ['facade', 'roof', 'basement', 'heating', 'windows', 'other'] as const;
+
+        for (const cat of photoCategories) {
+          const catPhotos = photos.filter((p) => p.category === cat);
+          if (catPhotos.length === 0) continue;
+
+          checkPage(imgH + 20);
+          sectionTitle(`Fotos: ${PHOTO_CATEGORY_LABELS[cat]}`);
+
+          let col = 0;
+          let rowStartY = y;
+
+          for (const photo of catPhotos) {
+            const signedUrl = signedUrlMap[photo.file_path];
+            if (!signedUrl) continue;
+            const b64 = await imageToBase64(signedUrl);
+            if (!b64) continue;
+
+            if (col === 0) {
+              checkPage(imgH + 12);
+              rowStartY = y;
+            }
+
+            const x = margin + col * (imgW + gap);
+            try {
+              doc.addImage(b64, 'JPEG', x, rowStartY, imgW, imgH);
+            } catch {
+              // Bildformat nicht unterstützt — überspringen
+            }
+
+            if (photo.description) {
+              doc.setFontSize(7);
+              doc.setFont('helvetica', 'normal');
+              doc.setTextColor(120, 120, 120);
+              const descLines = doc.splitTextToSize(photo.description, imgW);
+              doc.text(descLines[0], x, rowStartY + imgH + 3.5);
+            }
+
+            col++;
+            if (col >= cols) {
+              col = 0;
+              y = rowStartY + imgH + 8;
+            }
+          }
+
+          if (col > 0) {
+            y = rowStartY + imgH + 8;
+          }
+        }
       }
 
       // ── Footer ────────────────────────────────────────────────────────────
