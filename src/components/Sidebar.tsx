@@ -7,7 +7,7 @@ import {
   Plus,
   BookOpen,
   LogOut,
-  Zap,
+  Shield,
   UserCircle,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
@@ -70,10 +70,10 @@ export function Sidebar({ userEmail, locale }: Props) {
     <aside className="flex h-full w-60 flex-col border-r border-zinc-200 bg-white">
       {/* Brand */}
       <div className="flex h-16 items-center gap-2.5 border-b border-zinc-200 px-5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500">
-          <Zap size={16} className="text-white" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-800">
+          <Shield size={16} className="text-white" />
         </div>
-        <span className="text-base font-bold text-zinc-900">Energieberater</span>
+        <span className="text-base font-bold text-zinc-900">Saniatlas</span>
       </div>
 
       {/* Navigation */}

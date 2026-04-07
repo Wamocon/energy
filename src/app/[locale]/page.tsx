@@ -9,8 +9,9 @@ export default async function LandingPage() {
       {/* Navigation */}
       <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
-            ⚡ Energieberater
+          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50 flex items-center gap-2">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-blue-800 text-white text-xs font-bold">S</span>
+            Saniatlas
           </span>
           <nav className="flex items-center gap-3">
             <Link
@@ -21,7 +22,7 @@ export default async function LandingPage() {
             </Link>
             <Link
               href="/auth/register"
-              className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+              className="rounded-lg bg-blue-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-900"
             >
               {t('nav.register')}
             </Link>
@@ -42,7 +43,7 @@ export default async function LandingPage() {
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/auth/register"
-                className="rounded-lg bg-zinc-900 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="rounded-lg bg-blue-800 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-900"
               >
                 {t('landing.hero.cta')}
               </Link>

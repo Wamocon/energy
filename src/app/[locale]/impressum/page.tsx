@@ -5,7 +5,7 @@ export default function ImpressumPage() {
     <div className="min-h-screen bg-zinc-50">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-zinc-900">⚡ Energieberater</Link>
+          <Link href="/" className="text-lg font-bold text-zinc-900">Saniatlas</Link>
           <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900">← Zurück</Link>
         </div>
       </header>
@@ -48,7 +48,7 @@ export default function ImpressumPage() {
           <section>
             <h2 className="mb-2 text-base font-semibold text-zinc-900">Angaben zum Angebot</h2>
             <p>
-              Energieberater ist eine webbasierte Software-as-a-Service-Plattform für die digitale
+              Saniatlas ist eine webbasierte Software-as-a-Service-Plattform für die digitale
               Gebäudeerfassung und Energieberatung. Das Angebot richtet sich primär an Unternehmen
               und gewerbliche Nutzer (Energieberater).
             </p>

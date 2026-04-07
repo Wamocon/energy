@@ -1,11 +1,11 @@
 {
-  "name": "Energieberater",
-  "short_name": "Energieberater",
-  "description": "Digitale Gebäudebegehung für Energieberater",
+  "name": "Saniatlas",
+  "short_name": "Saniatlas",
+  "description": "Die digitale Plattform für Energieberater — Vor-Ort-Erfassung, Fördernavigator und Projektmanagement.",
   "start_url": "/de/dashboard",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#f97316",
+  "theme_color": "#1e3a8a",
   "orientation": "portrait",
   "icons": [
     {
