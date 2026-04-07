@@ -1,0 +1,1 @@
+ALTER TABLE public.profiles ADD COLUMN cert_number TEXT;

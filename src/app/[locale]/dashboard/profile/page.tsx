@@ -45,6 +45,9 @@ export default function ProfilePage() {
           company: data.company ?? '',
           cert_number: (data as Profile & { cert_number?: string }).cert_number ?? '',
         });
+      } else {
+        // Profile row missing (registered before trigger was set up) — create it now
+        await supabase.from('profiles').insert({ id: user.id, email: user.email });
       }
       setLoading(false);
     }
@@ -58,7 +61,9 @@ export default function ProfilePage() {
 
     const { error } = await supabase
       .from('profiles')
-      .update({
+      .upsert({
+        id: user.id,
+        email: user.email,
         name: data.name || null,
         phone: data.phone || null,
         company: data.company || null,
