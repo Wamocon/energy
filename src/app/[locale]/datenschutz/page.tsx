@@ -1,11 +1,15 @@
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 
 export default function DatenschutzPage() {
   return (
     <div className="min-h-screen bg-zinc-50">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-zinc-900">⚡ Energieberater</Link>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={32} height={32} className="rounded-lg" />
+            <span className="text-lg font-bold text-zinc-900">Saniatlas</span>
+          </Link>
           <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900">← Zurück</Link>
         </div>
       </header>
@@ -30,7 +34,7 @@ export default function DatenschutzPage() {
           <section>
             <h2 className="mb-2 text-base font-semibold text-zinc-900">2. Überblick über die Datenverarbeitung</h2>
             <p>
-              Diese Datenschutzerklärung gilt für die Webanwendung &bdquo;Energieberater&ldquo; (energieberater.app).
+              Diese Datenschutzerklärung gilt für die Webanwendung &bdquo;Saniatlas&ldquo; (saniatlas.de).
               Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur
               Bereitstellung einer funktionsfähigen Plattform sowie unserer Inhalte und Leistungen erforderlich ist.
             </p>

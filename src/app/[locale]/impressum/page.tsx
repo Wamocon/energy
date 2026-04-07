@@ -1,11 +1,15 @@
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 
 export default function ImpressumPage() {
   return (
     <div className="min-h-screen bg-zinc-50">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-zinc-900">⚡ Energieberater</Link>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={32} height={32} className="rounded-lg" />
+            <span className="text-lg font-bold text-zinc-900">Saniatlas</span>
+          </Link>
           <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900">← Zurück</Link>
         </div>
       </header>
@@ -48,7 +52,7 @@ export default function ImpressumPage() {
           <section>
             <h2 className="mb-2 text-base font-semibold text-zinc-900">Angaben zum Angebot</h2>
             <p>
-              Energieberater ist eine webbasierte Software-as-a-Service-Plattform für die digitale
+              Saniatlas ist eine webbasierte Software-as-a-Service-Plattform für die digitale
               Gebäudeerfassung und Energieberatung. Das Angebot richtet sich primär an Unternehmen
               und gewerbliche Nutzer (Energieberater).
             </p>

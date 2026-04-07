@@ -7,11 +7,12 @@ import {
   Plus,
   BookOpen,
   LogOut,
-  Zap,
   UserCircle,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from '@/i18n/navigation';
+
+import Image from 'next/image';
 
 type NavItem = {
   label: string;
@@ -69,11 +70,9 @@ export function Sidebar({ userEmail, locale }: Props) {
   return (
     <aside className="flex h-full w-60 flex-col border-r border-zinc-200 bg-white">
       {/* Brand */}
-      <div className="flex h-16 items-center gap-2.5 border-b border-zinc-200 px-5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500">
-          <Zap size={16} className="text-white" />
-        </div>
-        <span className="text-base font-bold text-zinc-900">Energieberater</span>
+      <div className="flex h-16 items-center gap-2.5 border-b border-zinc-200 px-4">
+        <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={36} height={36} className="rounded-lg shrink-0" />
+        <span className="text-base font-bold text-zinc-900">Saniatlas</span>
       </div>
 
       {/* Navigation */}

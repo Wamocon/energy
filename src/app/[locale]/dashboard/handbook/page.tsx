@@ -9,7 +9,7 @@ const SECTIONS: HandbookSection[] = [
     icon: '📖',
     title: 'Übersicht — Was kann die App?',
     content: [
-      'Die Energieberater-App ist eine digitale Lösung für Energieberater (KMU), um Gebäudebegehungen vor Ort zu erfassen, Fotos zu dokumentieren und Projekte zu verwalten.',
+      'Saniatlas ist eine digitale Lösung für Energieberater (KMU), um Gebäudebegehungen vor Ort zu erfassen, Fotos zu dokumentieren und Projekte zu verwalten.',
       'Alle Daten werden sicher in einer DSGVO-konformen Cloud-Umgebung (Supabase) gespeichert. Nur der zuständige Berater kann seine eigenen Projekte einsehen.',
       'Die App ist vollständig responsiv und als Progressive Web App (PWA) auf dem Smartphone installierbar — inklusive Offline-fähigem Icon auf dem Homescreen.',
     ],
@@ -142,7 +142,7 @@ const SECTIONS: HandbookSection[] = [
     steps: [
       'Safari (iOS): Auf „Teilen" (□↑) tippen → „Zum Home-Bildschirm" wählen → „Hinzufügen".',
       'Chrome (Android): Menü (⋮) öffnen → „App installieren" wählen → Bestätigen.',
-      'Das Energieberater-Icon erscheint auf dem Homescreen.',
+      'Das Saniatlas-Icon erscheint auf dem Homescreen.',
       'App vom Homescreen starten — sie öffnet direkt das Dashboard.',
     ],
   },
@@ -198,7 +198,7 @@ export default async function HandbookPage({ params }: Props) {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-zinc-900">Produkthandbuch</h1>
         <p className="mt-1 text-sm text-zinc-500">
-          Anleitung und Hilfe für alle Funktionen der Energieberater-App.
+          Anleitung und Hilfe für alle Funktionen der Saniatlas-App.
         </p>
       </div>
 

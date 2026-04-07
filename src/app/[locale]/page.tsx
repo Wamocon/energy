@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 
 export default async function LandingPage() {
   const t = await getTranslations();
@@ -9,9 +10,10 @@ export default async function LandingPage() {
       {/* Navigation */}
       <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
-            ⚡ Energieberater
-          </span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/Saniatlas Logo.png" alt="Saniatlas" width={36} height={36} className="rounded-lg" />
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">Saniatlas</span>
+          </Link>
           <nav className="flex items-center gap-3">
             <Link
               href="/auth/login"
@@ -21,7 +23,7 @@ export default async function LandingPage() {
             </Link>
             <Link
               href="/auth/register"
-              className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+              className="rounded-lg bg-blue-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-900"
             >
               {t('nav.register')}
             </Link>
@@ -42,7 +44,7 @@ export default async function LandingPage() {
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/auth/register"
-                className="rounded-lg bg-zinc-900 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="rounded-lg bg-blue-800 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-900"
               >
                 {t('landing.hero.cta')}
               </Link>

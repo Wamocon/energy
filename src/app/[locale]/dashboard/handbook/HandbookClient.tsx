@@ -34,7 +34,7 @@ export function HandbookClient({ sections }: Props) {
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Produkthandbuch – Energieberater</title>
+  <title>Produkthandbuch – Saniatlas</title>
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; color: #18181b; }
     h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
@@ -48,8 +48,8 @@ export function HandbookClient({ sections }: Props) {
   </style>
 </head>
 <body>
-  <h1>Produkthandbuch – Energieberater</h1>
-  <p class="subtitle">Anleitung und Hilfe für alle Funktionen der Energieberater-App.</p>
+  <h1>Produkthandbuch – Saniatlas</h1>
+  <p class="subtitle">Anleitung und Hilfe für alle Funktionen der Saniatlas-App.</p>
   ${sections
     .map(
       (s) => `<div class="section">

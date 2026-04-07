@@ -8,18 +8,18 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Energieberater",
-  description: "Digitale Energieberatung für Profis",
+  title: "Saniatlas",
+  description: "Die digitale Plattform für Energieberater — Vor-Ort-Erfassung, Fördernavigator und Projektmanagement.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Energieberater",
+    title: "Saniatlas",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f97316",
+  themeColor: "#1e3a8a",
 };
 
 export default function RootLayout({
