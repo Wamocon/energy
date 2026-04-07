@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/client';
 import {
@@ -330,42 +330,107 @@ function InspectionTab({ building, projectId }: { building: Building | null; pro
 
 function PhotosTab({ photos, projectId }: { photos: ProjectPhoto[]; projectId: string }) {
   const categories = ['facade', 'roof', 'basement', 'heating', 'windows', 'other'] as const;
+  const [signedUrls, setSignedUrls] = useState<Record<string, string>>({});
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
-  const countByCategory = categories.reduce<Record<string, number>>(
-    (acc, cat) => ({ ...acc, [cat]: photos.filter((p) => p.category === cat).length }),
-    {},
-  );
+  const loadUrls = useCallback(async () => {
+    if (photos.length === 0) return;
+    const supabase = createClient();
+    const { data } = await supabase.storage
+      .from('project-photos')
+      .createSignedUrls(photos.map((p) => p.file_path), 3600);
+    if (data) {
+      const map: Record<string, string> = {};
+      data.forEach((item, i) => {
+        if (item.signedUrl) map[photos[i].file_path] = item.signedUrl;
+      });
+      setSignedUrls(map);
+    }
+  }, [photos]);
+
+  useEffect(() => { loadUrls(); }, [loadUrls]);
 
   return (
     <div className="space-y-4">
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setLightbox(null)}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={lightbox}
+            alt="Vorschau"
+            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute right-4 top-4 rounded-full bg-white/20 p-2 text-white hover:bg-white/40"
+            aria-label="Schließen"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {photos.length === 0 ? (
         <div className="rounded-xl border border-zinc-200 bg-white p-8 text-center">
           <Camera size={32} className="mx-auto mb-3 text-zinc-300" />
           <p className="text-sm text-zinc-500">Noch keine Fotos hochgeladen.</p>
         </div>
       ) : (
-        <div className="rounded-xl border border-zinc-200 bg-white p-6">
-          <h2 className="mb-4 font-semibold text-zinc-900">Fotos nach Kategorie</h2>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat) => {
-              const count = countByCategory[cat] ?? 0;
-              return (
-                <div
-                  key={cat}
-                  className="flex items-center justify-between rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3"
-                >
-                  <span className="text-sm text-zinc-700">{PHOTO_CATEGORY_LABELS[cat]}</span>
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      count > 0 ? 'bg-orange-100 text-orange-700' : 'bg-zinc-200 text-zinc-400'
-                    }`}
-                  >
-                    {count}
+        <div className="space-y-4">
+          {categories.map((cat) => {
+            const catPhotos = photos.filter((p) => p.category === cat);
+            if (catPhotos.length === 0) return null;
+            return (
+              <div key={cat} className="rounded-xl border border-zinc-200 bg-white p-5">
+                <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-700">
+                  <Camera size={14} className="text-zinc-400" />
+                  {PHOTO_CATEGORY_LABELS[cat]}
+                  <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">
+                    {catPhotos.length}
                   </span>
+                </h3>
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-5">
+                  {catPhotos.map((photo) => {
+                    const url = signedUrls[photo.file_path];
+                    return (
+                      <button
+                        key={photo.id}
+                        onClick={() => url && setLightbox(url)}
+                        disabled={!url}
+                        className="group relative aspect-square overflow-hidden rounded-lg bg-zinc-100"
+                        title={photo.description ?? undefined}
+                      >
+                        {url ? (
+                          <>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={url}
+                              alt={photo.description ?? PHOTO_CATEGORY_LABELS[cat]}
+                              className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
+                              <span className="scale-0 rounded-full bg-white/90 p-1 text-xs text-zinc-700 transition-transform group-hover:scale-100">
+                                🔍
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-300 border-t-orange-400" />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       )}
 
