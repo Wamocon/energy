@@ -50,8 +50,9 @@ const WINDOW_TYPE: Record<string, string> = {
 
 const VENTILATION_TYPE: Record<string, string> = {
   natural: 'Natürliche Lüftung',
-  mechanical: 'Mechanische Lüftung',
-  ventilation_system: 'Lüftungsanlage',
+  mechanical_supply: 'Mechanische Zuluft',
+  mechanical_exhaust: 'Mechanische Abluft',
+  balanced: 'Zu- und Abluftanlage',
 };
 
 const FUEL_TYPE: Record<string, string> = {
@@ -59,15 +60,22 @@ const FUEL_TYPE: Record<string, string> = {
   oil: 'Öl',
   electricity: 'Strom',
   district: 'Fernwärme',
-  biomass: 'Biomasse',
+  wood: 'Holz',
   other: 'Sonstige',
+};
+
+const FRAME_MATERIAL: Record<string, string> = {
+  pvc: 'PVC',
+  wood: 'Holz',
+  aluminium: 'Aluminium',
+  wood_aluminium: 'Holz-Aluminium',
 };
 
 const HOT_WATER_TYPE: Record<string, string> = {
   central: 'Zentral',
-  decentralized: 'Dezentral',
-  heat_pump: 'Wärmepumpe',
-  solar: 'Solar',
+  flow_heater: 'Durchlauferhitzer',
+  boiler: 'Boiler',
+  solar: 'Solarthermie',
 };
 
 const PHOTO_CATEGORY_LABELS: Record<string, string> = {
@@ -286,7 +294,7 @@ function InspectionTab({ building, projectId }: { building: Building | null; pro
         {/* Fenster */}
         <SectionHeading icon={<Square size={14} />} title="Fenster" />
         {building.window_type && <Row name="Verglasung" value={label(WINDOW_TYPE, building.window_type)} />}
-        {building.window_frame_material && <Row name="Rahmenmaterial" value={building.window_frame_material} />}
+        {building.window_frame_material && <Row name="Rahmenmaterial" value={label(FRAME_MATERIAL, building.window_frame_material)} />}
         {building.window_u_value && <Row name="U-Wert" value={`${building.window_u_value} W/(m²K)`} />}
         {building.window_g_value && <Row name="g-Wert" value={String(building.window_g_value)} />}
 
@@ -514,7 +522,7 @@ function ActionsTab({
         checkPage();
         sectionTitle('Fenster');
         if (building.window_type) addRow('Verglasung', label(WINDOW_TYPE, building.window_type));
-        if (building.window_frame_material) addRow('Rahmenmaterial', building.window_frame_material);
+        if (building.window_frame_material) addRow('Rahmenmaterial', label(FRAME_MATERIAL, building.window_frame_material));
         if (building.window_u_value) addRow('U-Wert', `${building.window_u_value} W/(m²K)`);
         if (building.window_g_value) addRow('g-Wert', String(building.window_g_value));
 
