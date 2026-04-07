@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { ClipboardList, Camera, CheckCircle2, ArrowRight, User, MapPin, Calendar, Building2 } from 'lucide-react';
+import { ClipboardList, Camera, CheckCircle2, ArrowRight, User, MapPin, Calendar, Building2, Phone } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { StatusDropdown } from './StatusDropdown';
 import type { ProjectStatus } from '@/lib/db/types';
@@ -123,6 +123,15 @@ export default async function ProjectDetailPage({ params }: Props) {
                 </div>
               </div>
             )}
+            {project.customer_phone && (
+              <div className="flex items-start gap-3">
+                <Phone size={15} className="mt-0.5 shrink-0 text-zinc-400" />
+                <div>
+                  <dt className="text-zinc-500">Telefon</dt>
+                  <dd className="text-zinc-900">{project.customer_phone}</dd>
+                </div>
+              </div>
+            )}
             <div className="flex items-start gap-3">
               <MapPin size={15} className="mt-0.5 shrink-0 text-zinc-400" />
               <div>
@@ -137,6 +146,15 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <dd className="text-zinc-900">{new Date(project.created_at).toLocaleDateString('de-DE')}</dd>
               </div>
             </div>
+            {project.appointment_date && (
+              <div className="flex items-start gap-3">
+                <Calendar size={15} className="mt-0.5 shrink-0 text-orange-400" />
+                <div>
+                  <dt className="text-zinc-500">Begehungstermin</dt>
+                  <dd className="font-medium text-zinc-900">{new Date(project.appointment_date).toLocaleDateString('de-DE')}</dd>
+                </div>
+              </div>
+            )}
           </dl>
         </div>
 

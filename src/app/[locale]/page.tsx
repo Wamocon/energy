@@ -99,6 +99,11 @@ export default async function LandingPage() {
       <footer className="border-t border-zinc-200 bg-white py-8 dark:border-zinc-800 dark:bg-zinc-950">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="text-sm text-zinc-500">{t('landing.compliance')}</p>
+          <div className="mt-3 flex items-center justify-center gap-4 text-xs text-zinc-400">
+            <Link href="/impressum" className="hover:text-zinc-600">Impressum</Link>
+            <span>·</span>
+            <Link href="/datenschutz" className="hover:text-zinc-600">Datenschutz</Link>
+          </div>
         </div>
       </footer>
     </div>

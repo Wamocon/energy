@@ -171,6 +171,13 @@ export function InspectionForm({ projectId, building, userId, initialPhotos }: P
       return;
     }
 
+    // AC-04.10: set status → 'in_progress' if project was still 'new'
+    await supabase
+      .from('projects')
+      .update({ status: 'in_progress' })
+      .eq('id', projectId)
+      .eq('status', 'new');
+
     setSaveState('saved');
     router.push(`/dashboard/projects/${projectId}`);
     router.refresh();
